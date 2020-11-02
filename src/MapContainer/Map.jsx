@@ -3,7 +3,7 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import api from './api';
 import mapStyle from './mapstyles';
 import CurrentLocation from './FindCurrentLocation'
-
+import Cards from '../Cards/Cards'
 
 const mapStyles = {
   width: '100%',
@@ -21,14 +21,18 @@ export class MapContainer extends Component {
     };
   }
 
-
   render() {
     return (
-      <CurrentLocation
+      <div>
+      <div className="haha" style={{height: "55vh"}}>
+       <CurrentLocation
         centerAroundCurrentLocation
         google={this.props.google}
       >
       </CurrentLocation>
+      </div>
+        <Cards></Cards>
+      </div>
     );
   }
 }

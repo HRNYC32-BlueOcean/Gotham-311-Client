@@ -15,7 +15,7 @@ class IndividualCards extends React.Component {
 
   componentDidMount() {
     let address;
-    Geocode.fromLatLng(props.info.lat, props.info.lng).then((response) => {
+    Geocode.fromLatLng(this.props.info.lat, this.props.info.lng).then((response) => {
       address = response.results[0].formatted_address;
       this.setState({
         address: address,
@@ -30,10 +30,10 @@ class IndividualCards extends React.Component {
           <p>{this.props.info.title}</p>
         </div>
         <div>
-          <p>{this.state.address}</p>
+          <p>{moment(this.props.info.createdAt).format('MMMM D, YYYY')}</p>
         </div>
         <div>
-          <p>{moment(this.props.info.createdAt).format('MMMM D, YYYY')}</p>
+          <p>{this.state.address}</p>
         </div>
         <div>
           <p>{this.props.info.description}</p>
