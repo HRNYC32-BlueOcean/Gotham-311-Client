@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import mapStyle from './mapstyles'
+import mapStyle from './mapstyles';
 
 const mapStyles = {
   map: {
@@ -29,6 +29,14 @@ export class CurrentLocation extends React.Component {
     if (prevState.currentLocation !== this.state.currentLocation) {
       this.recenterMap();
     }
+  }
+
+  placeMarkerAndPanTo(latLng, map) {
+    new google.maps.Marker({
+      position: latLng,
+      map: map,
+    });
+    map.panTo(latLng);
   }
 
   recenterMap() {
@@ -78,6 +86,11 @@ export class CurrentLocation extends React.Component {
       this.map = new maps.Map(node, mapConfig);
       this.map.setOptions({
         styles: mapStyle,
+      });
+      this.map.addListener('click', (e) => {
+        this.placeMarkerAndPanTo(e.latLng, this.map);
+        let latLong = e.latLng.toJSON();
+        console.log(latLong);
       });
     }
   }
