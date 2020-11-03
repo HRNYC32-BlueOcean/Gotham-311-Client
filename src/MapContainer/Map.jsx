@@ -5,6 +5,7 @@ import mapStyle from './mapstyles';
 import CurrentLocation from './FindCurrentLocation';
 import Cards from '../Cards/Cards';
 import UploadModal from '../components/UploadModal';
+import dummyData from '../Cards/dummydata'
 
 const mapStyles = {
   width: '100%',
@@ -20,6 +21,7 @@ export class MapContainer extends Component {
         lng: -74.006,
       },
       markerPosition: null,
+      data: dummyData
     };
     this.setMarkerPosition = this.setMarkerPosition.bind(this);
   }
@@ -30,7 +32,21 @@ export class MapContainer extends Component {
     });
   }
 
+
+
   render() {
+    let markers = [];
+    for (let i = 0; i < dummyData.length; i++) {
+      markers.push(
+        <Marker key={i} position={{
+          lat: dummyData[i].lat,
+          lng: dummyData[i].lng
+        }}
+        />
+      )
+    }
+
+
     return (
       <div>
         <div className="haha" style={{ height: '55vh' }}>
@@ -38,7 +54,9 @@ export class MapContainer extends Component {
             centerAroundCurrentLocation
             google={this.props.google}
             setMarkerPosition={this.setMarkerPosition}
-          ></CurrentLocation>
+          >
+            {markers}
+          </CurrentLocation>
         </div>
         <UploadModal props={this.state.markerPosition}/>
         <Cards></Cards>
