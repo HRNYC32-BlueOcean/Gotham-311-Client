@@ -39,9 +39,6 @@ class IndividualCards extends React.Component {
         <div className="Address">
           <p>{this.state.address}</p>
         </div>
-        <div className="Title">
-          <p>{this.props.info.title}</p>
-        </div>
         <div className="Description">
           <p>{this.props.info.description}</p>
         </div>
