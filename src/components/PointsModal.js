@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import PointsContainer from "./PointsContainer.jsx";
 
 export default function PointsModal() {
@@ -24,8 +25,13 @@ export default function PointsModal() {
         Open Points Modal
       </Button>
       <Dialog open={open} onClose={handleClose}>
+      <div style={{ "display":"flex", "justifyContent":"center"}}> 
+            <DialogTitle id="simple-dialog-title">
+                Issue Title Here
+            </DialogTitle>
+          </div>
           <DialogContent>
-          <h1>Thanks for submitting!</h1>
+     
       <PointsContainer/>
       
           <h3 style={{ "display":"flex", "justifyContent":"center"}}>You just recieved 10 Gotham points!</h3>

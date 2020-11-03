@@ -8,6 +8,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 
+
+
 export default function VoteModal() {
   const [open, setOpen] = React.useState(false);
 
@@ -25,7 +27,7 @@ export default function VoteModal() {
   return (
     <div>
      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open Vote Modal
+        Open Upload Modal
       </Button>
       <Grid container direction="row" justify="center" alignItems="center">
         <Dialog
@@ -37,9 +39,14 @@ export default function VoteModal() {
             justifyContent: 'center',
           }}
         >
-          <div style={{ "display":"flex", "justifyContent":"center"}}> 
+           <div style={{ "display":"flex", "justifyContent":"center"}}> 
             <DialogTitle id="simple-dialog-title">
-                Issue Title Here
+            <TextField
+          id="standard-search"
+          label="Issue Title"
+          type="search"
+          margin="normal"
+        />
             </DialogTitle>
           </div>
           <Grid item>
@@ -52,7 +59,6 @@ export default function VoteModal() {
               <Grid item>
                 <DialogContent>
                   <SelectDropdown />
-                <div>{}</div>
                 </DialogContent>
               </Grid>
               <Grid item>
@@ -62,7 +68,7 @@ export default function VoteModal() {
                   multiline
                   id="outlined-multiline-flexible"
                   label="Description"
-                />
+                /> 
                 </div>
               </Grid>
             </DialogContent>
@@ -75,14 +81,7 @@ export default function VoteModal() {
             }}
           >
             <Button onClick={handleClose} variant="outlined" color="primary">
-              upvote
-            </Button>
-            <Button
-              onClick={handleClose}
-              variant="outlined"
-              color="primary"
-            >
-              Report
+              Submit Issue
             </Button>
           </section>
         </Dialog>
@@ -90,3 +89,6 @@ export default function VoteModal() {
     </div>
   );
 }
+
+
+
