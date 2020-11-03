@@ -16,14 +16,22 @@ class App extends React.Component {
         renderPointsModal: false,
         issueSelected: {}
     }
-    this.renderVoteModal =  this.renderVoteModal.bind(this)
+    this.handleRenderVote =  this.handleRenderVote.bind(this)
     this.renderPointsModal =  this.renderPointsModal.bind(this)
+    this.handleIssueSelected =  this.handleIssueSelected.bind(this)
   }
-  renderVoteModal(issue){
-    console.log("this is issue back", issue)
+  handleIssueSelected(issue){
+    console.log("this is issue", issue)
     this.setState({
       issueSelected: issue,
-      renderVoteModal: true,
+      
+    })
+  }
+  handleRenderVote(){
+    // console.log("this is issue back", issue)
+    this.setState({
+      // issueSelected: issue,
+      renderVoteModal: !this.state.renderVoteModal,
     })
   }
   renderPointsModal(){
@@ -33,12 +41,12 @@ class App extends React.Component {
     })
   }
   render() {
-    const renderVote = this.state.renderVoteModal ? <VoteModal renderVoteModal={this.state.renderVoteModal} issue={this.state.issueSelected}/> : null
+    const renderVote = this.state.renderVoteModal ? <VoteModal handleRenderVote={this.handleRenderVote} renderVoteModal={this.state.renderVoteModal} handleIssue={this.handleIssueSelected}issue={this.state.issueSelected}/> : null
     const renderPoints = this.state.renderPointsModal ? <PointsModal renderPointsModal={this.state.renderPointsModal}/> : null
     return (
 
       <div className="container">
-        <Map renderVoteModal={this.renderVoteModal} renderPointsModal={this.renderPointsModal}/>
+        <Map handleRenderVote={this.handleRenderVote} handleIssue={this.handleIssueSelected} renderPointsModal={this.renderPointsModal}/>
         {renderVote}
         {renderPoints}
        </div>

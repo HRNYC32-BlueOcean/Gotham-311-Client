@@ -20,7 +20,7 @@ class Cards extends React.Component {
         textAlign: 'center'
         }}>
         {this.state.items.map((data, i) => {
-          return <IndividualCards info={data} keys={i} renderVoteModal={this.props.renderVoteModal} renderPointsModal={this.props.renderPointsModal}></IndividualCards>;
+          return <IndividualCards info={data} keys={i} handleRenderVote={this.props.handleRenderVote} handleIssue={this.props.handleIssue} renderPointsModal={this.props.renderPointsModal}></IndividualCards>;
         })}
       </div>
     );
