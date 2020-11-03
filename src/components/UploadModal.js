@@ -8,8 +8,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 
-
-
 export default function VoteModal() {
   const [open, setOpen] = React.useState(false);
 
@@ -27,7 +25,7 @@ export default function VoteModal() {
   return (
     <div>
      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open Upload Modal
+     Post an Issue
       </Button>
       <Grid container direction="row" justify="center" alignItems="center">
         <Dialog
@@ -39,7 +37,7 @@ export default function VoteModal() {
             justifyContent: 'center',
           }}
         >
-           <div style={{ "display":"flex", "justifyContent":"center"}}> 
+           <div style={{ "display":"flex", "justifyContent":"center"}}>
             <DialogTitle id="simple-dialog-title">
             <TextField
           id="standard-search"
@@ -68,7 +66,7 @@ export default function VoteModal() {
                   multiline
                   id="outlined-multiline-flexible"
                   label="Description"
-                /> 
+                />
                 </div>
               </Grid>
             </DialogContent>

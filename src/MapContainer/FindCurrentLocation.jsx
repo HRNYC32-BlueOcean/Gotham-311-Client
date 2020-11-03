@@ -19,6 +19,8 @@ export class CurrentLocation extends React.Component {
         lat: lat,
         lng: lng,
       },
+      hasMarker: 0,
+      marker: null,
     };
   }
 
@@ -28,15 +30,40 @@ export class CurrentLocation extends React.Component {
     }
     if (prevState.currentLocation !== this.state.currentLocation) {
       this.recenterMap();
+      new google.maps.Marker({
+        position: this.state.currentLocation,
+        map: this.map,
+        icon: {
+          path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+          scale: 4,
+          strokeColor: "#FFFFFF",
+        }
+      })
+      this.props.setMarkerPosition(this.state.currentLocation)
     }
   }
 
-  placeMarkerAndPanTo(latLng, map) {
-    new google.maps.Marker({
-      position: latLng,
-      map: map,
-    });
-    map.panTo(latLng);
+  placeMarkerAndPanTo(latLng, map, originalDistance) {
+    if (this.state.hasMarker === 1) {
+      this.state.marker.setMap(null);
+      this.props.setMarkerPosition(originalDistance)
+      this.setState({
+        hasMarker: 0
+      })
+    } else {
+      let latLong = latLng.toJSON()
+      this.setState({
+        hasMarker: 1,
+      });
+      this.setState({
+        marker: new google.maps.Marker({
+          position: latLng,
+          map: map,
+        }),
+      });
+      this.props.setMarkerPosition(latLong)
+      map.panTo(latLng);
+    }
   }
 
   recenterMap() {
@@ -61,7 +88,7 @@ export class CurrentLocation extends React.Component {
               lng: coords.longitude,
             },
           });
-        });
+        })
       }
     }
     this.loadMap();
@@ -88,9 +115,8 @@ export class CurrentLocation extends React.Component {
         styles: mapStyle,
       });
       this.map.addListener('click', (e) => {
-        this.placeMarkerAndPanTo(e.latLng, this.map);
+        this.placeMarkerAndPanTo(e.latLng, this.map, this.state.currentLocation);
         let latLong = e.latLng.toJSON();
-        console.log(latLong);
       });
     }
   }
@@ -112,7 +138,7 @@ export class CurrentLocation extends React.Component {
     const style = Object.assign({}, mapStyles.map);
     return (
       <div>
-        <div style={style} ref='map'>
+        <div style={style} ref="map">
           Loading map...
         </div>
         {this.renderChildren()}
