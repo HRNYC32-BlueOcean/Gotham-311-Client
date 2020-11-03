@@ -40,7 +40,7 @@ export class MapContainer extends Component {
             setMarkerPosition={this.setMarkerPosition}
           ></CurrentLocation>
         </div>
-        <UploadModal props={this.state.markerPosition} />
+        <UploadModal props={this.state.markerPosition}/>
         <Cards></Cards>
       </div>
     );
