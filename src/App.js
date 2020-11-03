@@ -5,7 +5,6 @@ import Cards from './Cards/Cards'
 
 class App extends React.Component {
   render() {
-    const { name } = this.props;
     return (
       <div className="container">
         <Map></Map>
