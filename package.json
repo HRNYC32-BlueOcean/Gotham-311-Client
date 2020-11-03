@@ -24,8 +24,8 @@
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-geocode": "^0.2.2"
-    "file-loader": "^6.2.0",
+    "react-geocode": "^0.2.2",
+    "file-loader": "^6.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
