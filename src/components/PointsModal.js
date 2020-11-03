@@ -5,8 +5,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PointsContainer from "./PointsContainer.jsx";
 
-export default function PointsModal() {
-  const [open, setOpen] = React.useState(false);
+export default function PointsModal({renderPointsModal}) {
+  const [open, setOpen] = React.useState(renderPointsModal ? true : false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -21,9 +21,6 @@ export default function PointsModal() {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open Points Modal
-      </Button>
       <Dialog open={open} onClose={handleClose}>
       <div style={{ "display":"flex", "justifyContent":"center"}}> 
             <DialogTitle id="simple-dialog-title">

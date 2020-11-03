@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 
-export default function VoteModal() {
+export default function UploadModal({renderPointsModal}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -81,7 +81,10 @@ export default function VoteModal() {
               marginBottom: 'inherit',
             }}
           >
-            <Button onClick={handleClose} variant="outlined" color="primary">
+            <Button onClick={() => {
+              renderPointsModal()
+              handleClose()
+              }} variant="outlined" color="primary">
               Submit Issue
             </Button>
           </section>
