@@ -7,6 +7,8 @@ node_modules/
 *.log
 package-lock.json
 .env
+./config
+config.js
 
 # OS generated files
 .DS_Store
