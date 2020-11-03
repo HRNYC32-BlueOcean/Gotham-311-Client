@@ -59,7 +59,6 @@ export default function UploadModal({ renderPointsModal }) {
                   var formData = new FormData();
                   var imagefile = document.querySelector('#image-file');
                   formData.append('image', imagefile.files[0]);
-                  console.log(imagefile.files)
                 }}
               ></input>
               <Grid item>
