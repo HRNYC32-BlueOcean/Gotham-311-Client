@@ -42,7 +42,10 @@ export class MapContainer extends Component {
             lat: dummyData[i].lat,
             lng: dummyData[i].lng,
           }}
-          onClick={() => this.props.renderVoteModal(dummyData[i])}
+          onClick={() => {
+            this.props.handleRenderVote();
+            this.props.handleIssue(dummyData[i]);
+          }}
         />
       );
     }
@@ -63,7 +66,8 @@ export class MapContainer extends Component {
           renderPointsModal={this.props.renderPointsModal}
         />
         <Cards
-          renderVoteModal={this.props.renderVoteModal}
+          handleRenderVote={this.props.handleRenderVote}
+          handleIssue={this.props.handleIssue}
           renderPointsModal={this.props.renderPointsModal}
         ></Cards>
       </div>

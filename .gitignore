@@ -19,3 +19,4 @@ config.js
 ehthumbs.db
 Thumbs.db
 src/MapContainer/api.js
+package-lock.json

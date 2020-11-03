@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 
+
 export default function UploadModal({ renderPointsModal }) {
   const [open, setOpen] = React.useState(false);
   const [image, setImage] = React.useState(null)
@@ -59,7 +60,6 @@ export default function UploadModal({ renderPointsModal }) {
                   var formData = new FormData();
                   var imagefile = document.querySelector('#image-file');
                   formData.append('image', imagefile.files[0]);
-                  console.log(imagefile.files)
                 }}
               ></input>
               <Grid item>

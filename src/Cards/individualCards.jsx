@@ -25,17 +25,21 @@ class IndividualCards extends React.Component {
 
   render() {
     return (
-      <div onClick={() => this.props.renderVoteModal(this.props.info)} className="individual-cards">
+
+      <div onClick={() => {
+        this.props.handleRenderVote()
+        this.props.handleIssue(this.props.info)
+        }} className="individual-cards">
         <div>
           <p>{this.props.info.title}</p>
         </div>
         <div>
           <p>{moment(this.props.info.createdAt).format('MMMM D, YYYY')}</p>
         </div>
-        <div>
+        <div className="Address">
           <p>{this.state.address}</p>
         </div>
-        <div>
+        <div className="Description">
           <p>{this.props.info.description}</p>
         </div>
       </div>
