@@ -7,8 +7,7 @@ import SelectDropdown from './SelectDropdown';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
-import cloudinary from '../Uploader/something'
-import axios from 'axios'
+
 
 export default function UploadModal({ renderPointsModal }) {
   const [open, setOpen] = React.useState(false);
@@ -61,12 +60,6 @@ export default function UploadModal({ renderPointsModal }) {
                   var formData = new FormData();
                   var imagefile = document.querySelector('#image-file');
                   formData.append('image', imagefile.files[0]);
-                  const uploadedResponse = await cloudinary.uploader.upload(
-                  uploaded,
-                  function (error, result) {
-                  setImage(result.url)
-                    }
-                )
                 }}
               ></input>
               <Grid item>
