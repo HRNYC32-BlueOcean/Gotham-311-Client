@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 
 export default function UploadModal({ renderPointsModal }) {
   const [open, setOpen] = React.useState(false);
+  const [image, setImage] = React.useState(null)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -55,13 +56,15 @@ export default function UploadModal({ renderPointsModal }) {
                 name="photo"
                 accept="image/*;capture=camera"
                 onChange={(e) => {
-                  let file = e.target.uploadFile.files[0]
-                  console.log(file);
+                  var formData = new FormData();
+                  var imagefile = document.querySelector('#image-file');
+                  formData.append('image', imagefile.files[0]);
+                  console.log(imagefile.files)
                 }}
               ></input>
               <Grid item>
                 <DialogContent>
-                  <ImageContainer />
+                  <ImageContainer image={image}/>
                 </DialogContent>
               </Grid>
               <Grid item>
