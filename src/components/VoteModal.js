@@ -26,7 +26,7 @@ export default function VoteModal({renderVoteModal, issue}) {
 
   return (
     <div>
-    
+
       <Grid container direction="row" justify="center" alignItems="center">
         <Dialog
           open={open}
@@ -37,7 +37,7 @@ export default function VoteModal({renderVoteModal, issue}) {
             justifyContent: 'center',
           }}
         >
-          <div style={{ "display":"flex", "justifyContent":"center"}}> 
+          <div style={{ "display":"flex", "justifyContent":"center"}}>
             <DialogTitle id="simple-dialog-title">
                 {renderTitle}
             </DialogTitle>
@@ -59,12 +59,7 @@ export default function VoteModal({renderVoteModal, issue}) {
               </Grid>
               <Grid item>
                 <div className="vote-description" style={{ "display":"flex", "justifyContent":"center"}}>
-                <TextField
-                  variant="outlined"
-                  multiline
-                  id="outlined-multiline-flexible"
-                  label="Description"
-                />
+                <p>{issue.description}</p>
                 </div>
               </Grid>
             </DialogContent>
