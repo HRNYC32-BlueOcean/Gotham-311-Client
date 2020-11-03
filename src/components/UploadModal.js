@@ -24,8 +24,13 @@ export default function VoteModal() {
 
   return (
     <div>
-     <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-     Post an Issue
+      <Button
+        variant="outlined"
+        style={{ width: '100%', height: '4vh' }}
+        color="primary"
+        onClick={handleClickOpen}
+      >
+        Post an Issue
       </Button>
       <Grid container direction="row" justify="center" alignItems="center">
         <Dialog
@@ -37,14 +42,9 @@ export default function VoteModal() {
             justifyContent: 'center',
           }}
         >
-           <div style={{ "display":"flex", "justifyContent":"center"}}>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
             <DialogTitle id="simple-dialog-title">
-            <TextField
-          id="standard-search"
-          label="Issue Title"
-          type="search"
-          margin="normal"
-        />
+              <TextField id="standard-search" label="Issue Title" type="search" margin="normal" />
             </DialogTitle>
           </div>
           <Grid item>
@@ -60,13 +60,16 @@ export default function VoteModal() {
                 </DialogContent>
               </Grid>
               <Grid item>
-                <div className="vote-description" style={{ "display":"flex", "justifyContent":"center"}}>
-                <TextField
-                  variant="outlined"
-                  multiline
-                  id="outlined-multiline-flexible"
-                  label="Description"
-                />
+                <div
+                  className="vote-description"
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                >
+                  <TextField
+                    variant="outlined"
+                    multiline
+                    id="outlined-multiline-flexible"
+                    label="Description"
+                  />
                 </div>
               </Grid>
             </DialogContent>
@@ -87,6 +90,3 @@ export default function VoteModal() {
     </div>
   );
 }
-
-
-

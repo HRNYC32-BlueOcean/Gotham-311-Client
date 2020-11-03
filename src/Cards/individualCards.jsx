@@ -25,7 +25,7 @@ class IndividualCards extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="individual-cards">
         <div>
           <p>{this.props.info.title}</p>
         </div>
