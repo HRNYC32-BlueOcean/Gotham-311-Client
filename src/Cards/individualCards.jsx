@@ -25,6 +25,7 @@ class IndividualCards extends React.Component {
 
   render() {
     return (
+
       <div onClick={() => {
         this.props.handleRenderVote()
         this.props.handleIssue(this.props.info)
@@ -35,10 +36,13 @@ class IndividualCards extends React.Component {
         <div>
           <p>{moment(this.props.info.createdAt).format('MMMM D, YYYY')}</p>
         </div>
-        <div>
+        <div className="Address">
           <p>{this.state.address}</p>
         </div>
-        <div>
+        <div className="Title">
+          <p>{this.props.info.title}</p>
+        </div>
+        <div className="Description">
           <p>{this.props.info.description}</p>
         </div>
       </div>

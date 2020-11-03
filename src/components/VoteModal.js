@@ -47,7 +47,7 @@ export default function VoteModal({renderVoteModal, issue, handleIssue, handleRe
             <DialogContent className="content">
               <Grid item>
                 <DialogContent>
-                  <ImageContainer />
+                  <ImageContainer image={issue.image}/>
                 </DialogContent>
               </Grid>
               <Grid item>

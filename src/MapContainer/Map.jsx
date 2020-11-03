@@ -5,7 +5,8 @@ import mapStyle from './mapstyles';
 import CurrentLocation from './FindCurrentLocation';
 import Cards from '../Cards/Cards';
 import UploadModal from '../components/UploadModal';
-import dummyData from '../Cards/dummydata'
+import dummyData from '../Cards/dummydata';
+import VoteModal from '../components/VoteModal';
 
 const mapStyles = {
   width: '100%',
@@ -21,7 +22,7 @@ export class MapContainer extends Component {
         lng: -74.006,
       },
       markerPosition: null,
-      data: dummyData
+      data: dummyData,
     };
     this.setMarkerPosition = this.setMarkerPosition.bind(this);
   }
@@ -32,20 +33,20 @@ export class MapContainer extends Component {
     });
   }
 
-
-
   render() {
     let markers = [];
     for (let i = 0; i < dummyData.length; i++) {
       markers.push(
-        <Marker key={i} position={{
-          lat: dummyData[i].lat,
-          lng: dummyData[i].lng
-        }}
+        <Marker
+          key={i}
+          position={{
+            lat: dummyData[i].lat,
+            lng: dummyData[i].lng,
+          }}
+          onClick={() => this.props.renderVoteModal(dummyData[i])}
         />
-      )
+      );
     }
-
 
     return (
       <div>
@@ -58,6 +59,7 @@ export class MapContainer extends Component {
             {markers}
           </CurrentLocation>
         </div>
+
         <UploadModal props={this.state.markerPosition}  renderPointsModal={this.props.renderPointsModal}/>
         <Cards handleRenderVote={this.props.handleRenderVote} handleIssue={this.props.handleIssue} renderPointsModal={this.props.renderPointsModal}></Cards>
       </div>

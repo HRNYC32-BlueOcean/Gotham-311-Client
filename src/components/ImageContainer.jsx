@@ -5,14 +5,13 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
-
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
   },
 });
 
-export default function ImageContainer() {
+export default function ImageContainer(props) {
   const classes = useStyles();
 
   return (
@@ -22,12 +21,13 @@ export default function ImageContainer() {
           component="img"
           alt="subway-photo"
           height="auto"
-          image="https://upload.wikimedia.org/wikipedia/commons/b/b7/North_Yorkshire_UK_relief_location_map.jpg"
+          image={
+            props.image ||
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTc111TqOByv02UVqoDNIgnhzyfPG7Fefd5-w&usqp=CAU'
+          }
         />
-        <CardContent>
-        </CardContent>
+        <CardContent></CardContent>
       </CardActionArea>
     </Card>
   );
 }
-

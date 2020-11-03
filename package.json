@@ -13,6 +13,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "cloudinary": "^1.23.0",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "fontsource-roboto": "^3.0.3",

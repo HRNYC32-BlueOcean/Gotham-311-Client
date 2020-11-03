@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import mapStyle from './mapstyles';
+import Geocode from 'react-geocode'
+import apiCode from './api'
 
 const mapStyles = {
   map: {
