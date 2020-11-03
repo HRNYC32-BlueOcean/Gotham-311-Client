@@ -23,7 +23,7 @@ APP.post('/postImage', async (req, res) => {
     const uploadedResponse = await cloudinary.uploader.upload(
       uploaded,
       function (error, result) {
-        console.log(result);
+        //do nothing
       }
     );
     res.send(uploadedResponse.url)
