@@ -22,10 +22,10 @@ class IndividualCards extends React.Component {
       });
     });
   }
-
+  
   render() {
     return (
-      <div>
+      <div onClick={() => this.props.renderVoteModal(this.props.info)}>
         <div>
           <p>{this.props.info.title}</p>
         </div>

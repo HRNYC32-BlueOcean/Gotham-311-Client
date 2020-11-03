@@ -8,8 +8,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 
-export default function VoteModal() {
-  const [open, setOpen] = React.useState(false);
+export default function VoteModal({renderVoteModal, issue}) {
+  const [open, setOpen] = React.useState(renderVoteModal ? true : false);
+  const [selectedIssue, setSelectedIssue] = React.useState(issue);
+  const [renderTitle, setRenderTitle] = React.useState(issue.title ? issue.title : null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,9 +26,7 @@ export default function VoteModal() {
 
   return (
     <div>
-     <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open Vote Modal
-      </Button>
+    
       <Grid container direction="row" justify="center" alignItems="center">
         <Dialog
           open={open}
@@ -39,7 +39,7 @@ export default function VoteModal() {
         >
           <div style={{ "display":"flex", "justifyContent":"center"}}> 
             <DialogTitle id="simple-dialog-title">
-                Issue Title Here
+                {renderTitle}
             </DialogTitle>
           </div>
           <Grid item>
@@ -51,8 +51,10 @@ export default function VoteModal() {
               </Grid>
               <Grid item>
                 <DialogContent>
-                  <SelectDropdown />
-                <div>{}</div>
+                  {/* <SelectDropdown /> */}
+                  <div className="vote-description" style={{ "display":"flex", "justifyContent":"center"}}>
+                  <h3>{selectedIssue.borough}</h3>
+                  </div>
                 </DialogContent>
               </Grid>
               <Grid item>
