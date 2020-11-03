@@ -59,14 +59,9 @@ export class MapContainer extends Component {
             {markers}
           </CurrentLocation>
         </div>
-        <UploadModal
-          props={this.state.markerPosition}
-          renderPointsModal={this.props.renderPointsModal}
-        />
-        <Cards
-          renderVoteModal={this.props.renderVoteModal}
-          renderPointsModal={this.props.renderPointsModal}
-        ></Cards>
+
+        <UploadModal props={this.state.markerPosition}  renderPointsModal={this.props.renderPointsModal}/>
+        <Cards handleRenderVote={this.props.handleRenderVote} handleIssue={this.props.handleIssue} renderPointsModal={this.props.renderPointsModal}></Cards>
       </div>
     );
   }
