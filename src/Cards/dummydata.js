@@ -9,7 +9,8 @@ var topIssues = [
     issue_type: "Traffic",
     priority: Math.floor(Math.random() * Math.floor(500)),
     date_issued: new Date() - Math.floor(Math.random() * Math.floor(100000)),
-    borough: "Manhattan"
+    borough: "Manhattan",
+    image: 'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg'
   },
   {
     title: "Manhole cover missing",
@@ -21,7 +22,8 @@ var topIssues = [
     issue_type: "Traffic",
     priority: Math.floor(Math.random() * Math.floor(500)),
     date_issued: new Date() - Math.floor(Math.random() * Math.floor(100000)),
-    borough: "Manhattan"
+    borough: "Manhattan",
+    image: 'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg'
   },
   {
     title: "Manhole cover missing",
@@ -33,7 +35,8 @@ var topIssues = [
     issue_type: "Traffic",
     priority: Math.floor(Math.random() * Math.floor(500)),
     date_issued: new Date() - Math.floor(Math.random() * Math.floor(100000)),
-    borough: "Manhattan"
+    borough: "Manhattan",
+    image: 'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg'
   },
   {
     title: "Manhole cover missing",
@@ -45,7 +48,8 @@ var topIssues = [
     issue_type: "Traffic",
     priority: Math.floor(Math.random() * Math.floor(500)),
     date_issued: new Date() - Math.floor(Math.random() * Math.floor(100000)),
-    borough: "Manhattan"
+    borough: "Manhattan",
+    image: 'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg'
   },
   {
     title: "Manhole cover missing",
@@ -57,7 +61,8 @@ var topIssues = [
     issue_type: "Traffic",
     priority: Math.floor(Math.random() * Math.floor(500)),
     date_issued: new Date() - Math.floor(Math.random() * Math.floor(100000)),
-    borough: "Manhattan"
+    borough: "Manhattan",
+    image: 'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg'
   }
 ]
 

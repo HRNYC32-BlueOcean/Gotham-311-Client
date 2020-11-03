@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 
-export default function UploadModal({renderPointsModal}) {
+export default function UploadModal({ renderPointsModal }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -49,6 +49,16 @@ export default function UploadModal({renderPointsModal}) {
           </div>
           <Grid item>
             <DialogContent className="content">
+              <input
+                id="image-file"
+                type="file"
+                name="photo"
+                accept="image/*;capture=camera"
+                onChange={(e) => {
+                  let file = e.target.uploadFile.files[0]
+                  console.log(file);
+                }}
+              ></input>
               <Grid item>
                 <DialogContent>
                   <ImageContainer />
@@ -81,10 +91,14 @@ export default function UploadModal({renderPointsModal}) {
               marginBottom: 'inherit',
             }}
           >
-            <Button onClick={() => {
-              renderPointsModal()
-              handleClose()
-              }} variant="outlined" color="primary">
+            <Button
+              onClick={() => {
+                renderPointsModal();
+                handleClose();
+              }}
+              variant="outlined"
+              color="primary"
+            >
               Submit Issue
             </Button>
           </section>
