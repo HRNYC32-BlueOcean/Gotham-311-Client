@@ -33,7 +33,9 @@ const darkTheme = createMuiTheme({
 // import {
 //   MenuIcon
 // } from '@material-ui/icons';
-
+// Disable zooming in on mobile
+document.header
+//
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -156,7 +158,6 @@ class App extends React.Component {
             </IconButton>
             <Typography variant="h6">NYAAN Gotham 311: Welcome {this.state.user}</Typography>
             <Typography variant="h6">You currently have {this.state.userPoints} points</Typography>
-            {/* <Button color="inherit">Login</Button> */}
           </Toolbar>
         </AppBar>
         <div className="container">
