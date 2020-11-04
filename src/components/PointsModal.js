@@ -21,7 +21,8 @@ export default function PointsModal({renderPointsModal}) {
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} fullWidth={true}
+  maxWidth = {'md'}>
       {/* <div style={{ "display":"flex", "justifyContent":"center"}}> 
             <DialogTitle id="simple-dialog-title">
                 Issue Title Here

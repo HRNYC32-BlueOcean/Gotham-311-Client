@@ -39,6 +39,8 @@ export default function UploadModal({ renderPointsModal }) {
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
+          fullWidth={true}
+  maxWidth = {'md'}
           style={{
             display: 'grid',
             justifyContent: 'center',
