@@ -43,6 +43,13 @@ export class MapContainer extends Component {
             lat: dummyData[i].lat,
             lng: dummyData[i].lng,
           }}
+          icon={{
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 6,
+            fillColor: '#FFFFFF',
+            strokeColor: '#FFFFFF',
+            fillOpacity: 1,
+          }}
           onClick={() => {
             this.props.handleRenderVote();
             this.props.handleIssue(dummyData[i]);
