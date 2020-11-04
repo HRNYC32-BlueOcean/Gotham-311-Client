@@ -14,14 +14,10 @@
     "web": "node index.js"
   },
   "dependencies": {
-<<<<<<< HEAD
-=======
     "axios": "^0.20.0",
     "cloudinary": "^1.23.0",
->>>>>>> c4809f7f327b73832b7cae7ad1dd9050eabe85a8
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
-    "cloudinary": "^1.23.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "file-loader": "^6.2.0",
