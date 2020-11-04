@@ -72,7 +72,7 @@ export default function VoteModal({renderVoteModal, issue, handleIssue, handleRe
             }}
           >
             <Button onClick={handleClose} variant="outlined" color="primary">
-              upvote
+              Upvote
             </Button>
             <Button
               onClick={handleClose}
