@@ -1,6 +1,36 @@
 $primary-color: white;
 $bg: black;
-h1 {
-  color: $primary-color;
-  background-color: $bg;
+
+body {
+  margin: 0;
+  background: black;
+  color: white;
+}
+
+.individual-cards {
+  border: 1px solid #ff6600;
+  margin-bottom: .2vh;
+  width: 60vw;
+  justify-content: center;
+  margin-left: 20vw;
+}
+
+.Title {
+  font-size: 1.1vw
+}
+
+.Date {
+  float: right;
+  margin-right: 1vw;
+}
+
+.Address {
+  color: rgb(87, 157, 236);
+  float: left;
+  margin-left: 1vw;
+  font-size: .79vw;
+}
+
+.Description {
+
 }
