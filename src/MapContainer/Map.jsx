@@ -21,7 +21,7 @@ export class MapContainer extends Component {
         lng: -74.006,
       },
       markerPosition: null,
-      data: dummyData,
+      userData: dummyData,
     };
     this.setMarkerPosition = this.setMarkerPosition.bind(this);
   }
@@ -62,7 +62,7 @@ export class MapContainer extends Component {
           </CurrentLocation>
         </div>
         <UploadModal
-          props={this.state.markerPosition}
+          location={this.state.markerPosition}
           renderPointsModal={this.props.renderPointsModal}
         />
         <Cards

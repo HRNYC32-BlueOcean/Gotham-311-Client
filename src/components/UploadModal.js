@@ -9,7 +9,7 @@ import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 
-export default function UploadModal({ renderPointsModal }) {
+export default function UploadModal({ renderPointsModal, location }) {
   const [open, setOpen] = React.useState(false);
   const [image, setImage] = React.useState(null);
 
@@ -21,6 +21,7 @@ export default function UploadModal({ renderPointsModal }) {
     setOpen(false);
     setImage(null);
   };
+
   const handleChange = (event) => {
     console.log('hello');
   };
@@ -110,6 +111,14 @@ export default function UploadModal({ renderPointsModal }) {
           >
             <Button
               onClick={() => {
+                let item = {
+                  title: null,
+                  description: null,
+                  createdAt: null,
+                  location: location,
+                  borough: null,
+                  image: null,
+                }
                 renderPointsModal();
                 handleClose();
               }}

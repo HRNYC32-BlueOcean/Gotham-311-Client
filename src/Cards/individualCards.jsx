@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom';
 import Geocode from 'react-geocode';
 import apiKey from '../MapContainer/api';
 import moment from 'moment';
+import {
+  // Card demos
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+} from '@material-ui/core';
 
 class IndividualCards extends React.Component {
   constructor(props) {
@@ -25,23 +32,32 @@ class IndividualCards extends React.Component {
 
   render() {
     return (
-
-      <div onClick={() => {
-        this.props.handleRenderVote()
-        this.props.handleIssue(this.props.info)
-        }} className="individual-cards">
-        <div>
-          <p>{this.props.info.title}</p>
-        </div>
-        <div>
-          <p>{moment(this.props.info.createdAt).format('MMMM D, YYYY')}</p>
-        </div>
-        <div className="Address">
-          <p>{this.state.address}</p>
-        </div>
-        <div className="Description">
-          <p>{this.props.info.description}</p>
-        </div>
+      <div
+        onClick={() => {
+          this.props.handleRenderVote();
+          this.props.handleIssue(this.props.info);
+        }}
+        className="individual-cards"
+      >
+        <Grid item xs={11} lg={11}>
+          <Card style={{
+            width: '80vw',
+          }}>
+            <CardContent>
+              <Typography color="textSecondary" gutterBottom>
+                {moment(this.props.info.create_date).format('MMMM D, YYYY')}
+              </Typography>
+              <Typography variant="h5" component="h2">
+                {this.props.info.title}
+              </Typography>
+              <Typography color="textSecondary">{this.state.address}</Typography>
+              <Typography variant="body2" component="p">
+                {this.props.info.description}
+                <br />
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
       </div>
     );
   }
