@@ -1,17 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 $primary-color: white;
-$bg: black;
+$bg: #3a3838;
+html {
+  font-family: 'Roboto', sans-serif;
+}
 
 body {
   margin: 0;
   background: black;
   color: white;
+  overflow: hidden;
 }
 
 .individual-cards {
-  border: 1px solid #ff6600;
-  margin-bottom: .2vh;
-  width: 60vw;
-  justify-content: center;
-  margin-left: 20vw;
+  padding: 8px;
+  width: 80vw;
+  margin-left: 10vw;
 }
-
+//
+::-webkit-scrollbar {
+  display: none;
+}

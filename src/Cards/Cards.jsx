@@ -16,8 +16,7 @@ class Cards extends React.Component {
     return (
       <div className='cards-container' style={{
         overflowY: 'scroll',
-        height: '40vh',
-        textAlign: 'center'
+        height: '42vh',
         }}>
         {this.state.items.map((data, i) => {
           return <IndividualCards info={data} keys={i} handleRenderVote={this.props.handleRenderVote} handleIssue={this.props.handleIssue} renderPointsModal={this.props.renderPointsModal}></IndividualCards>;

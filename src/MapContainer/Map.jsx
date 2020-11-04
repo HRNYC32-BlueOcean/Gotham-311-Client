@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-import api from './api';
 import mapStyle from './mapstyles';
 import CurrentLocation from './FindCurrentLocation';
 import Cards from '../Cards/Cards';
@@ -22,7 +21,7 @@ export class MapContainer extends Component {
         lng: -74.006,
       },
       markerPosition: null,
-      data: dummyData,
+      userData: dummyData,
     };
     this.setMarkerPosition = this.setMarkerPosition.bind(this);
   }
@@ -70,7 +69,7 @@ export class MapContainer extends Component {
           </CurrentLocation>
         </div>
         <UploadModal
-          props={this.state.markerPosition}
+          location={this.state.markerPosition}
           renderPointsModal={this.props.renderPointsModal}
         />
         <Cards
@@ -84,5 +83,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: api,
+  apiKey: 'AIzaSyDyjc_PSZhBWDvzJSDQVnUMT5RJ84IIrNA',
 })(MapContainer);
