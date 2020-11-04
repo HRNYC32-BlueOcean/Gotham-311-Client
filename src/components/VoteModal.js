@@ -27,7 +27,6 @@ export default function VoteModal({renderVoteModal, issue, handleIssue, handleRe
 
   return (
     <div>
-
       <Grid container direction="row" justify="center" alignItems="center">
         <Dialog
           open={open}
