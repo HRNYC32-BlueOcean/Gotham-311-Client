@@ -76,13 +76,13 @@ export default function VoteModal({renderVoteModal, issue, handleIssue, handleRe
               marginBottom: 'inherit',
             }}
           >
-            <Button onClick={handlevoted} variant="outlined" color="primary">
+            <Button onClick={handlevoted} variant="contained" color="primary">
               upvote
             </Button>
             <Button
               onClick={handleClose}
-              variant="outlined"
-              color="primary"
+              variant="contained"
+              color="secondary"
             >
               Report
             </Button>

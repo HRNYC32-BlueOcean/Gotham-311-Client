@@ -6,6 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import SelectDropdown from './SelectDropdown';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
+import SelectTypeDropdown from "./SelectTypeDropdown"
 import Grid from '@material-ui/core/Grid';
 
 
@@ -27,7 +28,7 @@ export default function UploadModal({ renderPointsModal, handleIssueSubmitted, h
   return (
     <div>
       <Button
-        variant="outlined"
+        variant="contained"
         style={{ width: '100%', height: '4vh' }}
         color="primary"
         onClick={handleClickOpen}
@@ -40,11 +41,11 @@ export default function UploadModal({ renderPointsModal, handleIssueSubmitted, h
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
           fullWidth={true}
-  maxWidth = {'md'}
-          style={{
-            display: 'grid',
-            justifyContent: 'center',
-          }}
+          maxWidth = {'md'}
+          // style={{
+          //   display: 'grid',
+          //   justifyContent: 'center',
+          // }}
         >
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <DialogTitle id="simple-dialog-title">
@@ -53,6 +54,7 @@ export default function UploadModal({ renderPointsModal, handleIssueSubmitted, h
           </div>
           <Grid item>
             <DialogContent className="content">
+              <div className="image-uploader" style={{ "display":"flex", "justifyContent":"center"}}>
               <input
                 id="image-file"
                 type="file"
@@ -62,8 +64,8 @@ export default function UploadModal({ renderPointsModal, handleIssueSubmitted, h
                   var formData = new FormData();
                   var imagefile = document.querySelector('#image-file');
                   formData.append('image', imagefile.files[0]);
-                }}
-              ></input>
+                }}></input>
+              </div>
               <Grid item>
                 <DialogContent>
                   <ImageContainer image={image}/>
@@ -72,6 +74,7 @@ export default function UploadModal({ renderPointsModal, handleIssueSubmitted, h
               <Grid item>
                 <DialogContent>
                   <SelectDropdown />
+                  <SelectTypeDropdown/>
                 </DialogContent>
               </Grid>
               <Grid item>
@@ -101,7 +104,7 @@ export default function UploadModal({ renderPointsModal, handleIssueSubmitted, h
                 handleRenderPointsModalPostIssue()
                 handleClose();
               }}
-              variant="outlined"
+              variant="contained"
               color="primary"
             >
               Submit Issue

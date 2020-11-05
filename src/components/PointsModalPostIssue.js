@@ -39,7 +39,7 @@ export default function PointsModalPostIssue({postIssueModal, handleRenderPoints
           <Button onClick={() => {
             handleClose()
             handleRenderPointsModalPostIssue()
-            }} variant="outlined" color="primary">
+            }} variant="contained">
             Close
           </Button>
         </div>

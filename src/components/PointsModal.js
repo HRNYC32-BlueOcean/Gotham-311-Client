@@ -22,7 +22,7 @@ export default function PointsModal({renderPointsModal, upVote, issueSubmitted, 
   };
 
   return (
-    <div>
+    <div >
       <Dialog open={open} onClose={handleClose} fullWidth={true}
   maxWidth = {'md'}>
       {/* <div style={{ "display":"flex", "justifyContent":"center"}}> 
@@ -34,13 +34,13 @@ export default function PointsModal({renderPointsModal, upVote, issueSubmitted, 
      
       <PointsContainer/>
       
-          <h3 style={{ "display":"flex", "justifyContent":"center"}}>You just recieved {points} Gotham points!</h3>
+          <h3 style={{ "display":"flex", "justifyContent":"center"}}>You just recieved {points} Gotham point!</h3>
           <div className="close-points-button" style={{ "display":"flex", "justifyContent":"center"}}>
           <Button onClick={() => {
             handleClose()
             renderPointsModal()
             handleIssueSubmitted()
-            }} variant="outlined" color="primary">
+            }} variant="contained">
             Close
           </Button>
         </div>
