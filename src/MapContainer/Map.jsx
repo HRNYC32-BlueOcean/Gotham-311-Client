@@ -95,7 +95,7 @@ export class MapContainer extends Component {
               position={position}
               icon={{
                 path: google.maps.SymbolPath.CIRCLE,
-                scale: 15,
+                scale: 6,
                 fillColor: '#FFFFFF',
                 strokeColor: '#9932CC',
                 fillOpacity: 1,
