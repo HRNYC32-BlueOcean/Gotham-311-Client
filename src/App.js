@@ -41,11 +41,10 @@ class App extends React.Component {
       renderVoteModal: false,
       renderPointsModal: false,
       issueSelected: {},
-      user: 5,
       isOpen: false,
-      userPoints: props.points || 500,
       userData: [],
       passDownData: [],
+      user: 16,
     };
     this.handleRenderVote = this.handleRenderVote.bind(this);
     this.renderPointsModal = this.renderPointsModal.bind(this);
@@ -101,6 +100,7 @@ class App extends React.Component {
               getUser(id:${this.state.user}) {
                 id
                 first_name
+                points
                 issues {
                   id
                   title
@@ -115,7 +115,7 @@ class App extends React.Component {
                   }
                 }
               }
-            }`,
+            }`
       },
     }).then((res) => {
       this.setState(
@@ -123,9 +123,9 @@ class App extends React.Component {
           userData: res.data.data.getUser,
         },
         () => {
-          return;
+          console.log(res.data.data)
         }
-      );
+      )
     });
   }
 
@@ -158,6 +158,8 @@ class App extends React.Component {
   }
 
   render() {
+    let name = this.state.userData[0] ? this.state.userData[0].first_name : null
+    let points = this.state.userData[0] ? this.state.userData[0].points : null
     const renderVote = this.state.renderVoteModal ? (
       <VoteModal
         handleRenderVote={this.handleRenderVote}
@@ -242,9 +244,9 @@ class App extends React.Component {
               See My Posts
             </IconButton>
             <Typography variant="h6">
-              NYAAN Gotham 311: Welcome {this.state.userData.first_name}
+              NYAAN Gotham 311: Welcome {name}
             </Typography>
-            <Typography variant="h6">You currently have {this.state.userPoints} points</Typography>
+            <Typography variant="h6">You currently have {points} points</Typography>
           </Toolbar>
         </AppBar>
         <div className="container">

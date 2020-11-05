@@ -54,7 +54,7 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
                     className="vote-description"
                     style={{ display: 'flex', justifyContent: 'center' }}
                   >
-                    <h3>{selectedIssue.borough.name}</h3>
+                    <h3>{issue.borough.name}</h3>
                   </div>
                 </DialogContent>
               </Grid>
@@ -101,7 +101,7 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
             <Button onClick={() => {
               let id = parseInt(issue.id)
               console.log(id)
-               // axios({
+                // axios({
                 //   url: api_url,
                 //   method: 'post',
                 //   data: {
