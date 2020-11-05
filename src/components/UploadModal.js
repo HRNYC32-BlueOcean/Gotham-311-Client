@@ -9,7 +9,7 @@ import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 
-export default function UploadModal({ renderPointsModal, location }) {
+export default function UploadModal({ renderPointsModal, location, userId}) {
   const [open, setOpen] = React.useState(false);
   const [image, setImage] = React.useState(null);
   const handleClickOpen = () => {
@@ -110,17 +110,20 @@ export default function UploadModal({ renderPointsModal, location }) {
           >
             <Button
               onClick={() => {
-                let item = `{
+                let item = `mutation{
                   createIssue(
                   title: ${null}
                   description: ${null}
                   photo_url: ${image}
-                  user_id: ${null}
+                  user_id: ${userId}
                   issue_type_id: ${null}
                   borough_id: ${null}
                   lat: ${location.lat}
                   lng: ${location.lng}
                   )
+                }{
+                  id
+                  title
                 }
                 `
                 renderPointsModal();

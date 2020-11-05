@@ -122,6 +122,7 @@ export class MapContainer extends Component {
         <UploadModal
           location={this.state.markerPosition}
           renderPointsModal={this.props.renderPointsModal}
+          userId={this.props.userId}
         />
         <Cards
           handleRenderVote={this.props.handleRenderVote}

@@ -219,6 +219,7 @@ class App extends React.Component {
             handleIssue={this.handleIssueSelected}
             renderPointsModal={this.renderPointsModal}
             passDownData={this.state.passDownData}
+            userId={this.state.user}
           />
           {renderVote}
           {renderPoints}
