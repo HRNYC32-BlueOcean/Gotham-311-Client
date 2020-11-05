@@ -86,6 +86,7 @@ export class MapContainer extends Component {
     if (this.state.passDownData.length > 0) {
       for (let i = 0; i < 10; i++) {
         if (this.state.passDownData[i] !== undefined) {
+          console.log(this.state.passDownData[i])
           let position = this.state.passDownData[i].coordinates
           markers.push(
             <Marker
@@ -93,9 +94,9 @@ export class MapContainer extends Component {
               position={position}
               icon={{
                 path: google.maps.SymbolPath.CIRCLE,
-                scale: 6,
+                scale: 15,
                 fillColor: '#FFFFFF',
-                strokeColor: '#FFFFFF',
+                strokeColor: '#9932CC',
                 fillOpacity: 1,
               }}
               onClick={() => {
