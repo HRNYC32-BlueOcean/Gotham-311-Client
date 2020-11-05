@@ -50,6 +50,7 @@ class App extends React.Component {
       postIssueModal: false,
 
     };
+
     this.handleRenderVote = this.handleRenderVote.bind(this);
     this.renderPointsModal = this.renderPointsModal.bind(this);
     this.handleIssueSelected = this.handleIssueSelected.bind(this);
@@ -57,9 +58,11 @@ class App extends React.Component {
     this.handleIssueSubmitted = this.handleIssueSubmitted.bind(this);
     this.handleRenderPointsModalPostIssue = this.handleRenderPointsModalPostIssue.bind(this);
   }
+
   handleIssueSelected(issue) {
     this.togglePosition = this.togglePosition.bind(this);
   }
+
   // get all issues cus no range yet :)
   componentDidMount() {
     this.getUserIssues(this.state.user);
@@ -108,10 +111,6 @@ class App extends React.Component {
   }
 
   handleRenderVote() {
-    // console.log("this is issue back", issue)
-
-
-  handleRenderVote() {
     this.setState({
       renderVoteModal: !this.state.renderVoteModal,
     });
@@ -122,12 +121,14 @@ class App extends React.Component {
       issueSubmitted: !this.state.issueSubmitted,
     });
   }
+
   handleUpvote() {
     this.setState({
       renderPointsModal: !this.state.renderPointsModal,
       upVote: !this.state.upVote,
     });
   }
+
   renderPointsModal() {
     console.log('clicked Points');
     this.setState({
@@ -135,10 +136,13 @@ class App extends React.Component {
       upVote: !this.state.upVote,
     });
   }
+
   handleRenderPointsModalPostIssue() {
     console.log('clicked Points');
     this.setState({
       postIssueModal: !this.state.postIssueModal,
+    })
+  }
 
   // toggles the position of the list-view menu
   togglePosition() {
@@ -164,7 +168,7 @@ class App extends React.Component {
         handleIssue={this.handleIssueSelected}
         issue={this.state.issueSelected}
       />
-    ) : null;   
+    ) : null;
 
     const renderPoints = this.state.renderPointsModal ? (
       <PointsModal
@@ -174,7 +178,7 @@ class App extends React.Component {
         issueSubmitted={this.state.issueSubmitted}
       />
     ) : null;
-    
+
     const renderPointsModalPostIssue = this.state.postIssueModal ? (
       <PointsModalPostIssue
         postIssueModal={this.state.postIssueModal}
@@ -183,7 +187,7 @@ class App extends React.Component {
         handleRenderPointsModalPostIssue={this.handleRenderPointsModalPostIssue}
         issueSubmitted={this.state.issueSubmitted}
       />
-    ) : null;    
+    ) : null;
 
     //renders the cards of self posts
     let personalData = this.state.userData[0]
