@@ -1,7 +1,6 @@
 require('dotenv').config();
 const EXPRESS = require('express');
 const PATH = require('path');
-const ROUTER = EXPRESS.Router();
 const PORT = process.env.PORT || 3002;
 const bodyParser = require('body-parser');
 const { cloudinary } = require('./Uploader/something.js');
@@ -10,8 +9,8 @@ const axios = require('axios');
 
 const APP = EXPRESS();
 
-APP.use(EXPRESS.static(PATH.join(__dirname, 'dist')));
-const distPath = PATH.join(__dirname, 'dist');
+// APP.use(EXPRESS.static(PATH.join(__dirname, 'dist')));
+const distPath = PATH.join(__dirname, 'dist/');
 APP.use(bodyParser.json({ limit: '50mb' }));
 APP.use(bodyParser.urlencoded({ extended: true }));
 APP.use(cookieParser());
@@ -45,13 +44,8 @@ function checkCookieMiddleware(req, res, next) {
 }
 //------------------------------
 
-ROUTER.get('/', checkCookieMiddleware, (req, res) => {
-  res.status(200).send('index');
-});
-
-//delete later, but this is the authentication test page
-APP.get('/test', checkCookieMiddleware, (req, res) => {
-  res.status(200).send('test page');
+APP.get('/', checkCookieMiddleware, (req, res) => {
+  res.sendFile(distPath + 'index.html');
 });
 
 APP.post('/postImage', async (req, res) => {
@@ -65,36 +59,6 @@ APP.post('/postImage', async (req, res) => {
     res.sendStatus(404);
   }
 });
-
-//AUTH:
-//CREATE USER:
-// app.post('/user', (req, res) => {
-//   console.log('in users post');
-//   const idToken = req.body.idToken;
-//   // idToken comes from the client app
-//   admin
-//     .auth()
-//     .verifyIdToken(idToken)
-//     .then((decodedToken) => {
-//       // let uid = decodedToken.uid;
-//       // console.log(decodedToken)
-//       console.log('--------------\nverified!');
-//       //******************************* */
-//       //INSERT INTO OUR DATABASE HERE
-//       //******************************* */
-//       return true;
-//     })
-//     .catch(function (error) {
-//       //user not verified error don't persist.
-//       console.log('error', error);
-//       //VERIFY FUNCTIONALITY
-//       res.sendStatus(401);
-//       Promise.resolve(error);
-//     })
-//     .then(() => {
-//       console.log('successfully saved: ');
-//     });
-// });
 
 //set user cookie if token has been sent in firebase
 APP.post('/cookie', (req, res) => {
@@ -148,6 +112,10 @@ APP.get('/login', (req, res) => {
   }
   res.sendFile(distPath + '/login.html');
 });
+
+APP.get('*', (req,res) => {
+  res.sendFile(distPath + req.params['0'].split('/')[1]);
+})
 
 APP.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
