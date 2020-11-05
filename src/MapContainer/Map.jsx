@@ -16,12 +16,7 @@ export class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentLocation: {
-        lat: 40.7128,
-        lng: -74.006,
-      },
       markerPosition: null,
-      userData: dummyData,
     };
     this.setMarkerPosition = this.setMarkerPosition.bind(this);
   }
@@ -34,27 +29,26 @@ export class MapContainer extends Component {
 
   render() {
     let markers = [];
-    for (let i = 0; i < dummyData.length; i++) {
-      markers.push(
-        <Marker
-          key={i}
-          position={{
-            lat: dummyData[i].lat,
-            lng: dummyData[i].lng,
-          }}
-          icon={{
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 6,
-            fillColor: '#FFFFFF',
-            strokeColor: '#FFFFFF',
-            fillOpacity: 1,
-          }}
-          onClick={() => {
-            this.props.handleRenderVote();
-            this.props.handleIssue(dummyData[i]);
-          }}
-        />
-      );
+    if (this.props.passDownData.length > 0) {
+      for (let i = 0; i < 10; i++) {
+        markers.push(
+          <Marker
+            key={i}
+            position={this.props.passDownData[i].coordinates}
+            icon={{
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 6,
+              fillColor: '#FFFFFF',
+              strokeColor: '#FFFFFF',
+              fillOpacity: 1,
+            }}
+            onClick={() => {
+              this.props.handleRenderVote();
+              this.props.handleIssue(this.props.passDownData[i]);
+            }}
+          />
+        );
+      }
     }
 
     return (
@@ -76,6 +70,7 @@ export class MapContainer extends Component {
           handleRenderVote={this.props.handleRenderVote}
           handleIssue={this.props.handleIssue}
           renderPointsModal={this.props.renderPointsModal}
+          data={this.props.passDownData}
         ></Cards>
       </div>
     );

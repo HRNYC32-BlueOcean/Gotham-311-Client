@@ -8,7 +8,7 @@ class Cards extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: dummydata,
+      items: this.props.data || dummydata,
     };
   }
 
@@ -18,8 +18,10 @@ class Cards extends React.Component {
         overflowY: 'scroll',
         height: '42vh',
         }}>
-        {this.state.items.map((data, i) => {
-          return <IndividualCards info={data} keys={i} handleRenderVote={this.props.handleRenderVote} handleIssue={this.props.handleIssue} renderPointsModal={this.props.renderPointsModal}></IndividualCards>;
+        {this.props.data.map((data, i) => {
+          if (i < 15) {
+            return <IndividualCards info={data} keys={i} handleRenderVote={this.props.handleRenderVote} handleIssue={this.props.handleIssue} renderPointsModal={this.props.renderPointsModal}></IndividualCards>;
+          }
         })}
       </div>
     );

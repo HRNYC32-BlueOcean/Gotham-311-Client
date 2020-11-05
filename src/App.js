@@ -4,6 +4,7 @@ import Cards from './Cards/Cards';
 import VoteModal from './components/VoteModal.js';
 import UploadModal from './components/UploadModal.js';
 import PointsModal from './components/PointsModal.js';
+import moment from 'moment';
 import {
   Toolbar,
   Button,
@@ -18,11 +19,11 @@ import {
   ThemeProvider,
   CssBaseLine,
 } from '@material-ui/core';
+import axios from 'axios';
+
 // Imports for testing new cards:
 import dummyData from './Cards/dummydata';
-
-import moment from 'moment'
-
+const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 
 const darkTheme = createMuiTheme({
   palette: {
@@ -34,7 +35,7 @@ const darkTheme = createMuiTheme({
 //   MenuIcon
 // } from '@material-ui/icons';
 // Disable zooming in on mobile
-document.header
+document.header;
 //
 class App extends React.Component {
   constructor(props) {
@@ -46,30 +47,103 @@ class App extends React.Component {
       renderVoteModal: false,
       renderPointsModal: false,
       issueSelected: {},
-      user: props.name || 'David',
+      user: 5,
       isOpen: false,
       userPoints: props.points || 500,
+      userData: [],
+      passDownData: [],
     };
     this.handleRenderVote = this.handleRenderVote.bind(this);
     this.renderPointsModal = this.renderPointsModal.bind(this);
     this.handleIssueSelected = this.handleIssueSelected.bind(this);
     this.togglePosition = this.togglePosition.bind(this);
   }
+  // get all issues cus no range yet :)
+  componentDidMount() {
+    this.getAllIssues();
+    this.getUserIssues(this.props.id);
+  }
+
+  getAllIssues() {
+    axios({
+      url: api_url,
+      method: 'post',
+      data: {
+        query: `{
+              getIssues {
+                id
+                title
+                description
+                photo_url
+                create_date
+                borough{
+                    name
+                  }
+                coordinates{
+                  lat
+                  lng
+                }
+              }
+            }`,
+      },
+    }).then((res) => {
+      this.setState(
+        {
+          passDownData: res.data.data.getIssues,
+        },
+        () => {
+          return
+        }
+      );
+    });
+  }
+
+  getUserIssues(id) {
+    axios({
+      url: api_url,
+      method: 'post',
+      data: {
+        query: `{
+              getUser(id:${this.state.user}) {
+                id
+                first_name
+                issues {
+                  id
+                  title
+                  description
+                  create_date
+                  resolution_status{
+                    name
+                  }
+                }
+              }
+            }`,
+      },
+    }).then((res) => {
+      this.setState(
+        {
+          userData: res.data.data.getUser,
+        },
+        () => {
+          return
+        }
+      );
+    });
+  }
+
   handleIssueSelected(issue) {
-    console.log('this is issue', issue);
     this.setState({
       issueSelected: issue,
     });
   }
+
   handleRenderVote() {
-    // console.log("this is issue back", issue)
     this.setState({
-      // issueSelected: issue,
       renderVoteModal: !this.state.renderVoteModal,
     });
   }
+
   renderPointsModal() {
-    console.log('clicked Points');
     this.setState({
       renderPointsModal: true,
     });
@@ -97,6 +171,32 @@ class App extends React.Component {
     const renderPoints = this.state.renderPointsModal ? (
       <PointsModal renderPointsModal={this.state.renderPointsModal} />
     ) : null;
+    let personalData = this.state.userData[0]
+      ? this.state.userData[0].issues.map((e, i) => (
+          <Grid item xs={11} lg={11}>
+            <Card
+              style={{
+                width: '60vw',
+              }}
+            >
+              <CardContent>
+                <Typography color="textSecondary" gutterBottom>
+                  {moment(e.create_date).format('MMMM D, YYYY')}
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  {e.title}
+                </Typography>
+                {/* <Typography color="textSecondary">{e.resolution_status.name}</Typography> */}
+                <Typography variant="body2" component="p">
+                  {e.description}
+                  <br />
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))
+      : null;
+
     return (
       <ThemeProvider theme={darkTheme}>
         {/* <CssBaseline/> */}
@@ -114,27 +214,7 @@ class App extends React.Component {
           }}
         >
           <Grid container direction="column" justify="flex-start" alignItems="center" spacing={2}>
-            {dummyData.map((e, i) => (
-              <Grid item xs={11} lg={11}>
-                <Card>
-                  <CardContent>
-                    <Typography color="textSecondary" gutterBottom>
-                    {moment(e.create_date).format('MMMM D, YYYY')}
-                    </Typography>
-                    <Typography variant="h5" component="h2">
-                    {e.title}
-                    </Typography>
-                    <Typography color="textSecondary">
-                    {e.resolution_status}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                      {e.description}
-                      <br />
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
+            {personalData}
           </Grid>
         </div>
         <AppBar
@@ -145,9 +225,11 @@ class App extends React.Component {
             backgroundColor: 'black',
           }}
         >
-          <Toolbar style={{
-            justifyContent: 'space-between'
-          }}>
+          <Toolbar
+            style={{
+              justifyContent: 'space-between',
+            }}
+          >
             <IconButton
               edge="start"
               color="inherit"
@@ -156,7 +238,9 @@ class App extends React.Component {
             >
               See My Posts
             </IconButton>
-            <Typography variant="h6">NYAAN Gotham 311: Welcome {this.state.user}</Typography>
+            <Typography variant="h6">
+              NYAAN Gotham 311: Welcome {this.state.userData.first_name}
+            </Typography>
             <Typography variant="h6">You currently have {this.state.userPoints} points</Typography>
           </Toolbar>
         </AppBar>
@@ -166,6 +250,7 @@ class App extends React.Component {
             handleRenderVote={this.handleRenderVote}
             handleIssue={this.handleIssueSelected}
             renderPointsModal={this.renderPointsModal}
+            passDownData={this.state.passDownData}
           />
           {renderVote}
           {renderPoints}

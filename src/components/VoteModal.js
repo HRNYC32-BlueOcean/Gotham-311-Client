@@ -12,7 +12,6 @@ export default function VoteModal({renderVoteModal, issue, handleIssue, handleRe
   const [open, setOpen] = React.useState(renderVoteModal ? true : false);
   const [selectedIssue, setSelectedIssue] = React.useState(issue);
   const [renderTitle, setRenderTitle] = React.useState(issue.title ? issue.title : null);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -53,7 +52,7 @@ export default function VoteModal({renderVoteModal, issue, handleIssue, handleRe
                 <DialogContent>
                   {/* <SelectDropdown /> */}
                   <div className="vote-description" style={{ "display":"flex", "justifyContent":"center"}}>
-                  <h3>{selectedIssue.borough}</h3>
+                  <h3>{selectedIssue.borough.name}</h3>
                   </div>
                 </DialogContent>
               </Grid>
