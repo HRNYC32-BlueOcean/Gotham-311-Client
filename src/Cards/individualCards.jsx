@@ -34,7 +34,6 @@ class IndividualCards extends React.Component {
 
   render() {
     let date = this.props.info.create_date / 1000;
-    console.log(date)
     return (
       <div
         onClick={() => {
