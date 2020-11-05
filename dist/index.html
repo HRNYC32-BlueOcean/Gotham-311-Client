@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Gotham 311</title>
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <div id="app"></div>
-        <script src="bundle.js"></script>
-    </body>
+  <head>
+    <title>Gotham 311</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="bundle.js"></script>
+    <script>
+      document.addEventListener(
+        'touchstart',
+        (event) => {
+          if (event.touches.length > 1) {
+            console.log('zoom plz stahp');
+            event.preventDefault();
+            event.stopPropagation(); // maybe useless
+          }
+        },
+        {passive: false}
+      );
+    </script>
+  </body>
 </html>

@@ -7,19 +7,20 @@ import SelectDropdown from './SelectDropdown';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
+import axios from 'axios';
 
-
-export default function UploadModal({ renderPointsModal }) {
+export default function UploadModal({ renderPointsModal, location }) {
   const [open, setOpen] = React.useState(false);
-  const [image, setImage] = React.useState(null)
-
+  const [image, setImage] = React.useState(null);
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    setImage(null);
   };
+
   const handleChange = (event) => {
     console.log('hello');
   };
@@ -57,14 +58,27 @@ export default function UploadModal({ renderPointsModal }) {
                 name="photo"
                 accept="image/*;capture=camera"
                 onChange={(e) => {
-                  var formData = new FormData();
-                  var imagefile = document.querySelector('#image-file');
-                  formData.append('image', imagefile.files[0]);
+                  var imagefile = document.getElementById('image-file').files[0];
+                  var reader = new FileReader();
+                  reader.addEventListener(
+                    'load',
+                    function () {
+                      setImage(this.result)
+                      axios.post('/postImage', {
+                        image: this.result,
+                      }).then((result) => {
+                        let url = result.data
+                        setImage(url)
+                      })
+                    },
+                    false
+                  );
+                  reader.readAsDataURL(imagefile);
                 }}
               ></input>
               <Grid item>
                 <DialogContent>
-                  <ImageContainer image={image}/>
+                  <ImageContainer image={image} />
                 </DialogContent>
               </Grid>
               <Grid item>
@@ -96,6 +110,19 @@ export default function UploadModal({ renderPointsModal }) {
           >
             <Button
               onClick={() => {
+                let item = `{
+                  createIssue(
+                  title: ${null}
+                  description: ${null}
+                  photo_url: ${image}
+                  user_id: ${null}
+                  issue_type_id: ${null}
+                  borough_id: ${null}
+                  lat: ${location.lat}
+                  lng: ${location.lng}
+                  )
+                }
+                `
                 renderPointsModal();
                 handleClose();
               }}

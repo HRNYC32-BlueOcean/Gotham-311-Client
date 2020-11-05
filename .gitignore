@@ -1,10 +1,15 @@
 
 .cache/
 coverage/
-dist/*
 !dist/index.html
+!dist/authenticate.js
 node_modules/
 *.log
+package-lock.json
+.env
+./config
+config.js
+firebase-admin-config.json
 
 # OS generated files
 .DS_Store
@@ -15,3 +20,5 @@ node_modules/
 ehthumbs.db
 Thumbs.db
 src/MapContainer/api.js
+package-lock.json
+dist/bundle.js

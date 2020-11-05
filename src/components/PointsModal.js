@@ -5,7 +5,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PointsContainer from "./PointsContainer.jsx";
 
-export default function PointsModal({renderPointsModal}) {
+export default function PointsModal({renderPointsModal, points}) {
   const [open, setOpen] = React.useState(renderPointsModal ? true : false);
 
   const handleClickOpen = () => {
@@ -22,16 +22,15 @@ export default function PointsModal({renderPointsModal}) {
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
-      {/* <div style={{ "display":"flex", "justifyContent":"center"}}> 
+      {/* <div style={{ "display":"flex", "justifyContent":"center"}}>
             <DialogTitle id="simple-dialog-title">
                 Issue Title Here
             </DialogTitle>
           </div> */}
           <DialogContent>
-     
+
       <PointsContainer/>
-      
-          <h3 style={{ "display":"flex", "justifyContent":"center"}}>You just recieved 10 Gotham points!</h3>
+          <h3 style={{ "display":"flex", "justifyContent":"center"}}>You just recieved {points} Gotham points!</h3>
           <div className="close-points-button" style={{ "display":"flex", "justifyContent":"center"}}>
           <Button onClick={handleClose} variant="outlined" color="primary">
             Close
