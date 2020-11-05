@@ -7,6 +7,8 @@ import SelectDropdown from './SelectDropdown';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
+const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
+
 
 export default function VoteModal({
   renderVoteModal,
@@ -18,7 +20,6 @@ export default function VoteModal({
   const [open, setOpen] = React.useState(renderVoteModal ? true : false);
   const [selectedIssue, setSelectedIssue] = React.useState(issue);
   const [renderTitle, setRenderTitle] = React.useState(issue.title ? issue.title : null);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -47,9 +48,11 @@ export default function VoteModal({
             justifyContent: 'center',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <DialogTitle id="simple-dialog-title">{renderTitle}</DialogTitle>
-          </div>
+          <Grid item>
+            <div className="vote-title" style={{ display: 'flex', justifyContent: 'center', height: '8vh'}}>
+              <p className="title">{issue.title}</p>
+            </div>
+          </Grid>
           <Grid item>
             <DialogContent className="content">
               <Grid item>
@@ -58,22 +61,19 @@ export default function VoteModal({
                 </DialogContent>
               </Grid>
               <Grid item>
-                <DialogContent>
-                  {/* <SelectDropdown /> */}
-                  <div
-                    className="vote-description"
-                    style={{ display: 'flex', justifyContent: 'center' }}
-                  >
-                    <h3>{selectedIssue.borough}</h3>
-                  </div>
-                </DialogContent>
-              </Grid>
-              <Grid item>
                 <div
                   className="vote-description"
                   style={{ display: 'flex', justifyContent: 'center' }}
                 >
-                  <p>{issue.description}</p>
+                  <p className="borough">{issue.borough.name}</p>
+                </div>
+              </Grid>
+              <Grid item>
+                <div
+                  className="vote-description"
+                  style={{ display: 'flex', justifyContent: 'center', padding: '0' }}
+                >
+                  <p className="description">{issue.description}</p>
                 </div>
               </Grid>
             </DialogContent>
@@ -85,10 +85,46 @@ export default function VoteModal({
               marginBottom: 'inherit',
             }}
           >
-            <Button onClick={handlevoted} variant="contained" color="primary">
-              upvote
+            <Button variant="contained" color="primary">
+              onClick={(e) => {
+                let id = parseInt(issue.id);
+                // axios({
+                //   url: api_url,
+                //   method: 'post',
+                //   data: {
+                //     query: `{
+                //       updateIssue {
+                //         id: ${id}
+                //         upvotes_count: 1
+                //       }
+                //     }
+                //   }`,
+                //   },
+                // });
+                console.log(id);
+              }}
+            >
+              Upvote
             </Button>
-            <Button onClick={handleClose} variant="contained" color="secondary">
+            <Button variant="contained" color="secondary">
+              onClick={() => {
+                let id = parseInt(issue.id);
+                console.log(id);
+                // axios({
+                //   url: api_url,
+                //   method: 'post',
+                //   data: {
+                //     query: `{
+                //       updateIssue {
+                //         id: ${id}
+                //         reported_count: 1
+                //       }
+                //     }
+                //   }`,
+                //   },
+                // });
+              }}
+            >
               Report
             </Button>
           </section>

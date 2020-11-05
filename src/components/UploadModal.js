@@ -8,11 +8,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import SelectTypeDropdown from './SelectTypeDropdown';
 import Grid from '@material-ui/core/Grid';
+import axios from 'axios';
+
 
 export default function UploadModal({
   renderPointsModal,
   handleIssueSubmitted,
-  handleRenderPointsModalPostIssue,
+  handleRenderPointsModalPostIssue, location, userId
 }) {
   const [open, setOpen] = React.useState(false);
   const [image, setImage] = React.useState(null);
@@ -23,7 +25,9 @@ export default function UploadModal({
 
   const handleClose = () => {
     setOpen(false);
+    setImage(null);
   };
+
   const handleChange = (event) => {
     console.log('hello');
   };
@@ -45,10 +49,6 @@ export default function UploadModal({
           aria-labelledby="form-dialog-title"
           fullWidth={true}
           maxWidth={'md'}
-          // style={{
-          //   display: 'grid',
-          //   justifyContent: 'center',
-          // }}
         >
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <DialogTitle id="simple-dialog-title">
@@ -57,19 +57,30 @@ export default function UploadModal({
           </div>
           <Grid item>
             <DialogContent className="content">
-              <div className="image-uploader" style={{ display: 'flex', justifyContent: 'center' }}>
-                <input
-                  id="image-file"
-                  type="file"
-                  name="photo"
-                  accept="image/*;capture=camera"
-                  onChange={(e) => {
-                    var formData = new FormData();
-                    var imagefile = document.querySelector('#image-file');
-                    formData.append('image', imagefile.files[0]);
-                  }}
-                ></input>
-              </div>
+              <input
+                id="image-file"
+                type="file"
+                name="photo"
+                accept="image/*;capture=camera"
+                onChange={(e) => {
+                  var imagefile = document.getElementById('image-file').files[0];
+                  var reader = new FileReader();
+                  reader.addEventListener(
+                    'load',
+                    function () {
+                      setImage(this.result)
+                      axios.post('/postImage', {
+                        image: this.result,
+                      }).then((result) => {
+                        let url = result.data
+                        setImage(url)
+                      })
+                    },
+                    false
+                  );
+                  reader.readAsDataURL(imagefile);
+                }}
+              ></input>
               <Grid item>
                 <DialogContent>
                   <ImageContainer image={image} />
@@ -105,6 +116,23 @@ export default function UploadModal({
           >
             <Button
               onClick={() => {
+                
+                let item = `mutation{
+                  createIssue(
+                  title: ${null}
+                  description: ${null}
+                  photo_url: ${image}
+                  user_id: ${userId}
+                  issue_type_id: ${null}
+                  borough_id: ${null}
+                  lat: ${location.lat}
+                  lng: ${location.lng}
+                  )
+                }{
+                  id
+                  title
+                }
+                `
                 handleRenderPointsModalPostIssue();
                 handleClose();
               }}

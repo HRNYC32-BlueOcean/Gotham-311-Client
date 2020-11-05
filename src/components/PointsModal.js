@@ -5,6 +5,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PointsContainer from './PointsContainer.jsx';
 
+
 export default function PointsModal({
   renderPointsModal,
   upVote,
@@ -26,35 +27,17 @@ export default function PointsModal({
   };
 
   return (
-    <div>
-      <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={'md'}>
-        {/* <div style={{ "display":"flex", "justifyContent":"center"}}> 
-            <DialogTitle id="simple-dialog-title">
-                Issue Title Here
-            </DialogTitle>
-          </div> */}
-        <DialogContent>
-          <PointsContainer />
-
-          <h3 style={{ display: 'flex', justifyContent: 'center' }}>
-            You just recieved {points} Gotham point!
-          </h3>
-          <div
-            className="close-points-button"
-            style={{ display: 'flex', justifyContent: 'center' }}
-          >
-            <Button
-              onClick={() => {
-                handleClose();
-                renderPointsModal();
-                handleIssueSubmitted();
-              }}
-              variant="contained"
-            >
-              Close
-            </Button>
-          </div>
-        </DialogContent>
+   <div>
+      <Dialog open={open} onClose={handleClose}>
+          <DialogContent>
+      <PointsContainer/>
+          <h3 style={{ "display":"flex", "justifyContent":"center"}}>You just recieved 1 Gotham points!</h3>
+          <div className="close-points-button" style={{ "display":"flex", "justifyContent":"center"}}>
+          <Button onClick={handleClose} variant="outlined" color="primary">
+            Close
+          </Button>
+        </div>
+          </DialogContent>
       </Dialog>
     </div>
   );

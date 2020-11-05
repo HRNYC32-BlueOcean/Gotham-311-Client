@@ -38,7 +38,9 @@ export class CurrentLocation extends React.Component {
         icon: {
           path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
           scale: 4,
-          strokeColor: "#FFFFFF",
+          fillColor: '#c4c769',
+          strokeColor: '#FFFFFF',
+          fillOpacity: 1,
         }
       })
       this.props.setMarkerPosition(this.state.currentLocation)
