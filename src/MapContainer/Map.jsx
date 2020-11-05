@@ -6,6 +6,8 @@ import Cards from '../Cards/Cards';
 import UploadModal from '../components/UploadModal';
 import dummyData from '../Cards/dummydata';
 import VoteModal from '../components/VoteModal';
+import axios from 'axios';
+const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 
 const mapStyles = {
   width: '100%',
@@ -17,6 +19,7 @@ export class MapContainer extends Component {
     super(props);
     this.state = {
       markerPosition: null,
+      passDownData: [],
     };
     this.setMarkerPosition = this.setMarkerPosition.bind(this);
   }
@@ -24,6 +27,51 @@ export class MapContainer extends Component {
   setMarkerPosition(coord) {
     this.setState({
       markerPosition: coord,
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.markerPosition !== this.state.markerPosition) {
+      let upperLat = this.state.markerPosition.lat + 0.04;
+      let upperLng = this.state.markerPosition.lat - 0.04;
+      let underLat = this.state.markerPosition.lng + 0.04;
+      let underLng = this.state.markerPosition.lng - 0.04;
+      console.log(upperLat, upperLng, underLat, underLng)
+      this.getAllIssues();
+    }
+  }
+
+  getAllIssues(upperLat, underLat, upperLng, underLng) {
+    axios({
+      url: api_url,
+      method: 'post',
+      data: {
+        query: `{
+              getIssues {
+                id
+                title
+                description
+                photo_url
+                create_date
+                borough{
+                    name
+                  }
+                coordinates{
+                  lat
+                  lng
+                }
+              }
+            }`,
+      },
+    }).then((res) => {
+      this.setState(
+        {
+          passDownData: res.data.data.getIssues,
+        },
+        () => {
+          return
+        }
+      );
     });
   }
 
@@ -70,7 +118,7 @@ export class MapContainer extends Component {
           handleRenderVote={this.props.handleRenderVote}
           handleIssue={this.props.handleIssue}
           renderPointsModal={this.props.renderPointsModal}
-          data={this.props.passDownData}
+          data={this.state.passDownData}
         ></Cards>
       </div>
     );

@@ -54,7 +54,7 @@ class App extends React.Component {
   // get all issues cus no range yet :)
   componentDidMount() {
     this.getAllIssues();
-    this.getUserIssues(this.props.id);
+    this.getUserIssues(this.state.user);
   }
 
   getAllIssues() {
