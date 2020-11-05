@@ -2,12 +2,14 @@
 .cache/
 coverage/
 !dist/index.html
+!dist/authenticate.js
 node_modules/
 *.log
 package-lock.json
 .env
 ./config
 config.js
+firebase-admin-config.json
 
 # OS generated files
 .DS_Store
