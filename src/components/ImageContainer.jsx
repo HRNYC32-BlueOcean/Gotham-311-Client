@@ -7,8 +7,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: '60vw',
-    maxHeight: '30vh'
+    width: '30vh',
+    height: '30vh'
   },
 });
 
@@ -16,6 +16,7 @@ export default function ImageContainer(props) {
   const classes = useStyles();
 
   return (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
@@ -30,5 +31,6 @@ export default function ImageContainer(props) {
         <CardContent></CardContent>
       </CardActionArea>
     </Card>
+    </div>
   );
 }

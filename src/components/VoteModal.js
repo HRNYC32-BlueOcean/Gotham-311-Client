@@ -49,21 +49,20 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
               </Grid>
               <Grid item>
                 <DialogContent>
-                  {/* <SelectDropdown /> */}
                   <div
                     className="vote-description"
                     style={{ display: 'flex', justifyContent: 'center' }}
                   >
-                    <h3>{issue.borough.name}</h3>
+                    <p className="borough">{issue.borough.name}</p>
                   </div>
                 </DialogContent>
               </Grid>
               <Grid item>
                 <div
                   className="vote-description"
-                  style={{ display: 'flex', justifyContent: 'center' }}
+                  style={{ display: 'flex', justifyContent: 'center', padding: '0'}}
                 >
-                  <p>{issue.description}</p>
+                  <p className="description">{issue.description}</p>
                 </div>
               </Grid>
             </DialogContent>
