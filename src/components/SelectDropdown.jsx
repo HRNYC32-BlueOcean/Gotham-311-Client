@@ -15,27 +15,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SelectDropdown() {
+export default function SelectDropdown({method}) {
   const classes = useStyles();
-  const handleChange = (event) => {
-
-  };
+  const handleChange = (event, index, value) => {
+    method(index.props.value)
+  }
 
   return (
-    <div className="select-list" style={{ "display":"flex", "justifyContent":"center"}}>
+    <div className="select-list" style={{ display: 'flex', justifyContent: 'center' }}>
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">Borough</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Bronx</MenuItem>
-          <MenuItem value={20}>Brooklyn</MenuItem>
-          <MenuItem value={30}>Queens</MenuItem>
-          <MenuItem value={40}>Manhattan</MenuItem>
+        <Select labelId="demo-simple-select-label" id="demo-simple-select" onChange={handleChange}>
+          <MenuItem value={1}>Manhattan</MenuItem>
+          <MenuItem value={2}>Brooklyn</MenuItem>
+          <MenuItem value={3}>Queens</MenuItem>
+          <MenuItem value={4}>Bronx</MenuItem>
+          <MenuItem value={5}>Staten Island</MenuItem>
         </Select>
       </FormControl>
-      </div>
-  )
+    </div>
+  );
 }

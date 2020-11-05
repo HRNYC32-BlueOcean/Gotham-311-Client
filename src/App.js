@@ -6,12 +6,12 @@ import UploadModal from './components/UploadModal.js';
 import PointsModal from './components/PointsModal.js';
 import moment from 'moment';
 import {
+  Box,
   Toolbar,
   Button,
   AppBar,
   IconButton,
   Typography,
-  // Card demos
   Grid,
   Card,
   CardContent,
@@ -20,6 +20,7 @@ import {
   CssBaseLine,
 } from '@material-ui/core';
 import axios from 'axios';
+import PointsModalPostIssue from './components/PointsModalPostIssue'
 
 // Imports for testing new cards:
 import dummyData from './Cards/dummydata';
@@ -30,6 +31,7 @@ const darkTheme = createMuiTheme({
     type: 'dark',
   },
 });
+
 
 class App extends React.Component {
   constructor(props) {
@@ -43,52 +45,30 @@ class App extends React.Component {
       issueSelected: {},
       isOpen: false,
       userData: [],
-      passDownData: [],
+      upVote: false,
       user: 16,
+      issueSubmitted: false,
+      postIssueModal: false,
     };
+
     this.handleRenderVote = this.handleRenderVote.bind(this);
     this.renderPointsModal = this.renderPointsModal.bind(this);
     this.handleIssueSelected = this.handleIssueSelected.bind(this);
+    this.handleUpvote = this.handleUpvote.bind(this);
+    this.handleIssueSubmitted = this.handleIssueSubmitted.bind(this);
+    this.handleRenderPointsModalPostIssue = this.handleRenderPointsModalPostIssue.bind(this);
     this.togglePosition = this.togglePosition.bind(this);
   }
-  // get all issues cus no range yet :)
-  componentDidMount() {
-    this.getAllIssues();
-    this.getUserIssues(this.state.user);
+
+  handleIssueSelected(issue) {
+    this.setState({
+      issueSelected: issue,
+    });
   }
 
-  getAllIssues() {
-    axios({
-      url: api_url,
-      method: 'post',
-      data: {
-        query: `{
-              getIssues {
-                id
-                title
-                description
-                photo_url
-                create_date
-                borough{
-                    name
-                  }
-                coordinates{
-                  lat
-                  lng
-                }
-              }
-            }`,
-      },
-    }).then((res) => {
-      this.setState(
-        {
-          passDownData: res.data.data.getIssues,
-        },
-        () => {
-          return;
-        }
-      );
-    });
+  // get all issues cus no range yet :)
+  componentDidMount() {
+    this.getUserIssues(this.state.user);
   }
 
   getUserIssues(id) {
@@ -115,17 +95,15 @@ class App extends React.Component {
                   }
                 }
               }
-            }`
+            }`,
       },
     }).then((res) => {
       this.setState(
         {
           userData: res.data.data.getUser,
         },
-        () => {
-          console.log(res.data.data)
-        }
-      )
+        () => {}
+      );
     });
   }
 
@@ -141,14 +119,36 @@ class App extends React.Component {
     });
   }
 
-  renderPointsModal() {
+  handleIssueSubmitted() {
     this.setState({
-      renderPointsModal: true,
+      issueSubmitted: !this.state.issueSubmitted,
     });
   }
+
+  handleUpvote() {
+    this.setState({
+      renderPointsModal: !this.state.renderPointsModal,
+      upVote: !this.state.upVote,
+    });
+  }
+
+  renderPointsModal() {
+    this.setState({
+      renderPointsModal: !this.state.renderPointsModal,
+      upVote: !this.state.upVote,
+    });
+  }
+
+  handleRenderPointsModalPostIssue() {
+    this.setState({
+      postIssueModal: !this.state.postIssueModal,
+    })
+  }
+
   // toggles the position of the list-view menu
   togglePosition() {
     const { isOpen } = this.state;
+    console.log(this.state.isOpen)
     if (isOpen) {
       this.menuRef.current.style.left = '-100vw';
     } else {
@@ -158,22 +158,40 @@ class App extends React.Component {
   }
 
   render() {
-    let name = this.state.userData[0] ? this.state.userData[0].first_name : null
-    let points = this.state.userData[0] ? this.state.userData[0].points : null
+      let name = this.state.userData[0] ? this.state.userData[0].first_name : null;
+      let points = this.state.userData[0] ? this.state.userData[0].points : null;
+
     const renderVote = this.state.renderVoteModal ? (
       <VoteModal
+        upVote={this.state.upVote}
         handleRenderVote={this.handleRenderVote}
         renderVoteModal={this.state.renderVoteModal}
+        handleUpvote={this.handleUpvote}
         handleIssue={this.handleIssueSelected}
         issue={this.state.issueSelected}
       />
     ) : null;
 
     const renderPoints = this.state.renderPointsModal ? (
-      <PointsModal renderPointsModal={this.state.renderPointsModal} />
+      <PointsModal
+        upVote={this.state.upVote}
+        handleIssueSubmitted={this.handleIssueSubmitted}
+        renderPointsModal={this.renderPointsModal}
+        issueSubmitted={this.state.issueSubmitted}
+      />
     ) : null;
 
-        //renders the cards of self posts
+    const renderPointsModalPostIssue = this.state.postIssueModal ? (
+      <PointsModalPostIssue
+        postIssueModal={this.state.postIssueModal}
+        upVote={this.state.upVote}
+        handleIssueSubmitted={this.handleIssueSubmitted}
+        handleRenderPointsModalPostIssue={this.handleRenderPointsModalPostIssue}
+        issueSubmitted={this.state.issueSubmitted}
+      />
+    ) : null;
+
+    //renders the cards of self posts
     let personalData = this.state.userData[0]
       ? this.state.userData[0].issues.map((e, i) => (
           <Grid item xs={11} lg={11}>
@@ -186,12 +204,12 @@ class App extends React.Component {
             >
               <CardContent>
                 <Typography color="textSecondary" gutterBottom>
-                  {moment(e.create_date).format('MMMM D, YYYY')}
+                  {moment.unix(e.create_date / 1000).format('MMMM D, YYYY')}
                 </Typography>
                 <Typography variant="h3" component="h2">
                   {e.title}
                 </Typography>
-                <Typography color="textSecondary">{e.resolution_status.name}</Typography>
+                <Typography color="textSecondary">Resolution Status: {e.resolution_status.name}</Typography>
                 <Typography variant="h4" component="h4">
                   {e.description}
                   <br />
@@ -204,7 +222,6 @@ class App extends React.Component {
 
     return (
       <ThemeProvider theme={darkTheme}>
-        {/* <CssBaseline/> */}
         <div
           ref={this.menuRef}
           style={{
@@ -218,9 +235,11 @@ class App extends React.Component {
             paddingTop: '74px',
           }}
         >
-          <Grid container direction="column" justify="flex-start" alignItems="center" spacing={2}>
-            {personalData}
-          </Grid>
+          <Box style={{ maxHeight: '94vh', overflow: 'auto' }}>
+            <Grid container direction="column" justify="flex-start" alignItems="center" spacing={2}>
+              {personalData}
+            </Grid>
+          </Box>
         </div>
         <AppBar
           position="static"
@@ -243,9 +262,7 @@ class App extends React.Component {
             >
               See My Posts
             </IconButton>
-            <Typography variant="h6">
-              NYAAN Gotham 311: Welcome {name}
-            </Typography>
+            <Typography variant="h6">NYAAN Gotham 311: Welcome {name}</Typography>
             <Typography variant="h6">You currently have {points} points</Typography>
           </Toolbar>
         </AppBar>
@@ -255,10 +272,13 @@ class App extends React.Component {
             handleRenderVote={this.handleRenderVote}
             handleIssue={this.handleIssueSelected}
             renderPointsModal={this.renderPointsModal}
-            passDownData={this.state.passDownData}
+            userId={this.state.user}
+            handleIssueSubmitted={this.handleIssueSubmitted}
+            handleRenderPointsModalPostIssue={this.handleRenderPointsModalPostIssue}
           />
           {renderVote}
           {renderPoints}
+          {renderPointsModalPostIssue}
         </div>
       </ThemeProvider>
     );

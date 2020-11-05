@@ -7,6 +7,8 @@ import UploadModal from '../components/UploadModal';
 import dummyData from '../Cards/dummydata';
 import VoteModal from '../components/VoteModal';
 import axios from 'axios';
+
+
 const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 
 const mapStyles = {
@@ -32,27 +34,37 @@ export class MapContainer extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.markerPosition !== this.state.markerPosition) {
-      let upperLat = this.state.markerPosition.lat + 0.04;
-      let upperLng = this.state.markerPosition.lat - 0.04;
-      let underLat = this.state.markerPosition.lng + 0.04;
-      let underLng = this.state.markerPosition.lng - 0.04;
-      console.log(upperLat, upperLng, underLat, underLng)
-      this.getAllIssues();
+      let upperLat = this.state.markerPosition.lat.toFixed(2);
+      let upperLng = this.state.markerPosition.lng.toFixed(2);
+      let underLat = this.state.markerPosition.lat.toFixed(2);
+      let underLng = this.state.markerPosition.lng.toFixed(2);
+
+      upperLat = parseFloat(upperLat) + 0.04;
+      upperLng = parseFloat(upperLng) + 0.04;
+      underLat = parseFloat(underLat) - 0.04;
+      underLng = parseFloat(underLng) - 0.04;
+
+      this.getAllIssues(upperLat, upperLng, underLat, underLng);
     }
   }
 
-  getAllIssues(upperLat, underLat, upperLng, underLng) {
+  getAllIssues(upperLat, upperLng, underLat, underLng) {
     axios({
       url: api_url,
       method: 'post',
       data: {
         query: `{
-              getIssues {
+              getIssuesByCoordinates(upperLat:${upperLat}, underLat:${underLat},
+                upperLng:${upperLng}, underLng:${underLng}) {
                 id
                 title
                 description
                 photo_url
                 create_date
+                upvotes_count
+                resolution_status{
+                  name
+                }
                 borough{
                     name
                   }
@@ -66,10 +78,10 @@ export class MapContainer extends Component {
     }).then((res) => {
       this.setState(
         {
-          passDownData: res.data.data.getIssues,
+          passDownData: res.data.data.getIssuesByCoordinates,
         },
         () => {
-          return
+          return;
         }
       );
     });
@@ -77,25 +89,28 @@ export class MapContainer extends Component {
 
   render() {
     let markers = [];
-    if (this.props.passDownData.length > 0) {
+    if (this.state.passDownData.length > 0) {
       for (let i = 0; i < 10; i++) {
-        markers.push(
-          <Marker
-            key={i}
-            position={this.props.passDownData[i].coordinates}
-            icon={{
-              path: google.maps.SymbolPath.CIRCLE,
-              scale: 6,
-              fillColor: '#FFFFFF',
-              strokeColor: '#FFFFFF',
-              fillOpacity: 1,
-            }}
-            onClick={() => {
-              this.props.handleRenderVote();
-              this.props.handleIssue(this.props.passDownData[i]);
-            }}
-          />
-        );
+        if (this.state.passDownData[i] !== undefined) {
+          let position = this.state.passDownData[i].coordinates
+          markers.push(
+            <Marker
+              key={i}
+              position={position}
+              icon={{
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 6,
+                fillColor: '#FFFFFF',
+                strokeColor: '#9932CC',
+                fillOpacity: 1,
+              }}
+              onClick={() => {
+                this.props.handleIssue(this.state.passDownData[i]);
+                this.props.handleRenderVote();
+              }}
+            />
+          );
+        }
       }
     }
 
@@ -111,8 +126,11 @@ export class MapContainer extends Component {
           </CurrentLocation>
         </div>
         <UploadModal
+          props={this.state.markerPosition}
+          handleIssueSubmitted={this.props.handleIssueSubmitted}
+          handleRenderPointsModalPostIssue={this.props.handleRenderPointsModalPostIssue}
           location={this.state.markerPosition}
-          renderPointsModal={this.props.renderPointsModal}
+          userId={this.props.userId}
         />
         <Cards
           handleRenderVote={this.props.handleRenderVote}

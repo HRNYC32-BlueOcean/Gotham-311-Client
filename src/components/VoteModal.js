@@ -7,9 +7,16 @@ import SelectDropdown from './SelectDropdown';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
+import axios from 'axios';
 const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 
-export default function VoteModal({ renderVoteModal, issue, handleIssue, handleRenderVote }) {
+export default function VoteModal({
+  renderVoteModal,
+  issue,
+  handleIssue,
+  handleRenderVote,
+  handleUpvote,
+}) {
   const [open, setOpen] = React.useState(renderVoteModal ? true : false);
   const [selectedIssue, setSelectedIssue] = React.useState(issue);
   const [renderTitle, setRenderTitle] = React.useState(issue.title ? issue.title : null);
@@ -19,10 +26,12 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
 
   const handleClose = () => {
     setOpen(false);
-    handleRenderVote();
   };
-  const handleChange = (event) => {
-    console.log('hello');
+
+  const handleVoted = () => {
+    setOpen(false);
+    handleRenderVote();
+    handleUpvote();
   };
 
   return (
@@ -32,9 +41,18 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
+          fullWidth={true}
+          maxWidth={'md'}
+          style={{
+            display: 'grid',
+            justifyContent: 'center',
+          }}
         >
           <Grid item>
-            <div className="vote-title" style={{ display: 'flex', justifyContent: 'center', height: '8vh'}}>
+            <div
+              className="vote-title"
+              style={{ display: 'flex', justifyContent: 'center', height: '8vh' }}
+            >
               <p className="title">{issue.title}</p>
             </div>
           </Grid>
@@ -71,48 +89,50 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
             }}
           >
             <Button
+              variant="contained"
+              color="primary"
               onClick={(e) => {
                 let id = parseInt(issue.id);
-                // axios({
-                //   url: api_url,
-                //   method: 'post',
-                //   data: {
-                //     query: `{
-                //       updateIssue {
-                //         id: ${id}
-                //         upvotes_count: 1
-                //       }
-                //     }
-                //   }`,
-                //   },
-                // });
-                console.log(id);
+                axios({
+                  url: api_url,
+                  method: 'post',
+                  data: {
+                    query: `mutation {
+                      updateIssue(
+                        id: ${id}
+                        upvotes_count: ${issue.upvotes_count + 1}
+                         )
+                      }
+                  `,
+                  },
+                }).then((res) => {
+                  handleVoted();
+                });
               }}
-              variant="outlined"
-              color="primary"
             >
               Upvote
             </Button>
             <Button
+              variant="contained"
+              color="secondary"
               onClick={() => {
                 let id = parseInt(issue.id);
-                console.log(id);
-                // axios({
-                //   url: api_url,
-                //   method: 'post',
-                //   data: {
-                //     query: `{
-                //       updateIssue {
-                //         id: ${id}
-                //         reported_count: 1
-                //       }
-                //     }
-                //   }`,
-                //   },
-                // });
+                axios({
+                  url: api_url,
+                  method: 'post',
+                  data: {
+                    query: `mutation {
+                      updateIssue(
+                        id: ${id}
+                        reported_count: ${issue.upvotes_count + 1}
+                         )
+                      }
+                  `,
+                  },
+                }).then((res) => {
+                  handleClose();
+                });
               }}
-              variant="outlined"
-              color="primary"
             >
               Report
             </Button>
