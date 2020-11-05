@@ -110,17 +110,19 @@ export default function UploadModal({ renderPointsModal, location }) {
           >
             <Button
               onClick={() => {
-                console.log(location)
-                let item = {
-                  title: null,
-                  description: null,
-                  photo_url: null,
-                  user_id: null,
-                  issue_type_id: null,
-                  borough_id: null,
-                  lat: location.lat,
-                  lng: location.lng
+                let item = `{
+                  createIssue(
+                  title: ${null}
+                  description: ${null}
+                  photo_url: ${image}
+                  user_id: ${null}
+                  issue_type_id: ${null}
+                  borough_id: ${null}
+                  lat: ${location.lat}
+                  lng: ${location.lng}
+                  )
                 }
+                `
                 renderPointsModal();
                 handleClose();
               }}

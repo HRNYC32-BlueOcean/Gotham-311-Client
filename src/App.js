@@ -31,12 +31,7 @@ const darkTheme = createMuiTheme({
   },
 });
 
-// import {
-//   MenuIcon
-// } from '@material-ui/icons';
-// Disable zooming in on mobile
-document.header;
-//
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -92,7 +87,7 @@ class App extends React.Component {
           passDownData: res.data.data.getIssues,
         },
         () => {
-          return
+          return;
         }
       );
     });
@@ -112,6 +107,10 @@ class App extends React.Component {
                   title
                   description
                   create_date
+                  photo_url
+                  borough{
+                    name
+                  }
                   resolution_status{
                     name
                   }
@@ -125,7 +124,7 @@ class App extends React.Component {
           userData: res.data.data.getUser,
         },
         () => {
-          return
+          return;
         }
       );
     });
@@ -168,26 +167,35 @@ class App extends React.Component {
         issue={this.state.issueSelected}
       />
     ) : null;
+
     const renderPoints = this.state.renderPointsModal ? (
       <PointsModal renderPointsModal={this.state.renderPointsModal} />
     ) : null;
+
+        //renders the cards of self posts
     let personalData = this.state.userData[0]
       ? this.state.userData[0].issues.map((e, i) => (
           <Grid item xs={11} lg={11}>
             <Card
               style={{
-                width: '60vw',
+                width: '80vw',
+                overflowY: 'scroll',
+                padding: '8px',
+              }}
+              onClick={() => {
+                let properties = this.state.userData[0].issues[i]
+
               }}
             >
               <CardContent>
                 <Typography color="textSecondary" gutterBottom>
                   {moment(e.create_date).format('MMMM D, YYYY')}
                 </Typography>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h3" component="h2">
                   {e.title}
                 </Typography>
-                {/* <Typography color="textSecondary">{e.resolution_status.name}</Typography> */}
-                <Typography variant="body2" component="p">
+                <Typography color="textSecondary">{e.resolution_status.name}</Typography>
+                <Typography variant="h4" component="h4">
                   {e.description}
                   <br />
                 </Typography>
