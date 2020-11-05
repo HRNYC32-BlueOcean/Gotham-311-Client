@@ -15,9 +15,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SelectDropdown() {
+export default function SelectDropdown({method}) {
   const classes = useStyles();
-  const handleChange = (event) => {};
+  const handleChange = (event, index, value) => {
+    method(index.props.value)
+  }
 
   return (
     <div className="select-list" style={{ display: 'flex', justifyContent: 'center' }}>

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import SelectField from '@material-ui/core/Select';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -15,17 +15,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SelectTypeDropdown() {
+export default function SelectTypeDropdown({method}) {
   const classes = useStyles();
-  const handleChange = (event) => {
 
-  };
+  const handleChange = (event, index, value) => {
+    method(index.props.value)
+  }
 
   return (
     <div className="select-list" style={{ "display":"flex", "justifyContent":"center"}}>
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">Issue Type</InputLabel>
-        <Select
+        <SelectField
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           onChange={handleChange}
@@ -40,7 +41,7 @@ export default function SelectTypeDropdown() {
           <MenuItem value={8}>Power Outage</MenuItem>
           <MenuItem value={9}>Loud Music</MenuItem>
           <MenuItem value={10}>Hackers Hacking</MenuItem>
-        </Select>
+        </SelectField>
       </FormControl>
       </div>
   )

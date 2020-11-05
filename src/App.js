@@ -49,7 +49,6 @@ class App extends React.Component {
       user: 16,
       issueSubmitted: false,
       postIssueModal: false,
-
     };
 
     this.handleRenderVote = this.handleRenderVote.bind(this);
@@ -58,10 +57,13 @@ class App extends React.Component {
     this.handleUpvote = this.handleUpvote.bind(this);
     this.handleIssueSubmitted = this.handleIssueSubmitted.bind(this);
     this.handleRenderPointsModalPostIssue = this.handleRenderPointsModalPostIssue.bind(this);
+    this.togglePosition = this.togglePosition.bind(this);
   }
 
   handleIssueSelected(issue) {
-    this.togglePosition = this.togglePosition.bind(this);
+    this.setState({
+      issueSelected: issue,
+    });
   }
 
   // get all issues cus no range yet :)
@@ -131,7 +133,6 @@ class App extends React.Component {
   }
 
   renderPointsModal() {
-    console.log('clicked Points');
     this.setState({
       renderPointsModal: !this.state.renderPointsModal,
       upVote: !this.state.upVote,
@@ -139,7 +140,6 @@ class App extends React.Component {
   }
 
   handleRenderPointsModalPostIssue() {
-    console.log('clicked Points');
     this.setState({
       postIssueModal: !this.state.postIssueModal,
     })
@@ -148,6 +148,7 @@ class App extends React.Component {
   // toggles the position of the list-view menu
   togglePosition() {
     const { isOpen } = this.state;
+    console.log(this.state.isOpen)
     if (isOpen) {
       this.menuRef.current.style.left = '-100vw';
     } else {
