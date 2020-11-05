@@ -32,10 +32,10 @@ export class MapContainer extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.markerPosition !== this.state.markerPosition) {
-      let upperLat = this.state.markerPosition.lat + 0.04;
-      let upperLng = this.state.markerPosition.lng - 0.04;
-      let underLat = this.state.markerPosition.lat + 0.04;
-      let underLng = this.state.markerPosition.lng - 0.04;
+      let upperLat = parseFloat(this.state.markerPosition.lat) + 0.04;
+      let upperLng = parseFloat(this.state.markerPosition.lng) - 0.04;
+      let underLat = parseFloat(this.state.markerPosition.lat) + 0.04;
+      let underLng = parseFloat(this.state.markerPosition.lng) - 0.04;
       console.log(upperLat, upperLng, underLat, underLng)
       this.getAllIssues();
     }
@@ -47,7 +47,8 @@ export class MapContainer extends Component {
       method: 'post',
       data: {
         query: `{
-              getIssues {
+              getIssuesByCoordinates(upperLat:${upperLat}, underLat:${underLat},
+                upperLng:${upperLng}, underLng:${underLng}) {
                 id
                 title
                 description
