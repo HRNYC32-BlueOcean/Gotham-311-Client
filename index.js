@@ -1,11 +1,11 @@
 require('dotenv').config();
 const EXPRESS = require('express');
 const PATH = require('path');
+
 const PORT = process.env.PORT || 3002;
 const bodyParser = require('body-parser');
 const { cloudinary } = require('./Uploader/something.js');
 const cookieParser = require('cookie-parser');
-const axios = require('axios');
 
 const APP = EXPRESS();
 
@@ -15,10 +15,10 @@ APP.use(bodyParser.json({ limit: '50mb' }));
 APP.use(bodyParser.urlencoded({ extended: true }));
 APP.use(cookieParser());
 
-//firebase admin
+// firebase admin
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebase-admin-config.json');
-const { verify } = require('crypto');
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://blue-ocean-11c09.firebaseio.com',
@@ -113,9 +113,9 @@ APP.get('/login', (req, res) => {
   res.sendFile(distPath + '/login.html');
 });
 
-APP.get('*', (req,res) => {
+APP.get('*', (req, res) => {
   res.sendFile(distPath + req.params['0'].split('/')[1]);
-})
+});
 
 APP.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
