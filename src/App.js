@@ -182,10 +182,6 @@ class App extends React.Component {
                 overflowY: 'scroll',
                 padding: '8px',
               }}
-              onClick={() => {
-                let properties = this.state.userData[0].issues[i]
-
-              }}
             >
               <CardContent>
                 <Typography color="textSecondary" gutterBottom>
