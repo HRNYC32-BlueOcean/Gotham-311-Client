@@ -32,14 +32,12 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
-          style={{
-            display: 'grid',
-            justifyContent: 'center',
-          }}
         >
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <DialogTitle id="simple-dialog-title">{renderTitle}</DialogTitle>
-          </div>
+          <Grid item>
+            <div className="vote-title" style={{ display: 'flex', justifyContent: 'center', height: '8vh'}}>
+              <p className="title">{issue.title}</p>
+            </div>
+          </Grid>
           <Grid item>
             <DialogContent className="content">
               <Grid item>
@@ -48,19 +46,17 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
                 </DialogContent>
               </Grid>
               <Grid item>
-                <DialogContent>
-                  <div
-                    className="vote-description"
-                    style={{ display: 'flex', justifyContent: 'center' }}
-                  >
-                    <p className="borough">{issue.borough.name}</p>
-                  </div>
-                </DialogContent>
+                <div
+                  className="vote-description"
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                >
+                  <p className="borough">{issue.borough.name}</p>
+                </div>
               </Grid>
               <Grid item>
                 <div
                   className="vote-description"
-                  style={{ display: 'flex', justifyContent: 'center', padding: '0'}}
+                  style={{ display: 'flex', justifyContent: 'center', padding: '0' }}
                 >
                   <p className="description">{issue.description}</p>
                 </div>
@@ -76,7 +72,7 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
           >
             <Button
               onClick={(e) => {
-                let id = parseInt(issue.id)
+                let id = parseInt(issue.id);
                 // axios({
                 //   url: api_url,
                 //   method: 'post',
@@ -90,16 +86,17 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
                 //   }`,
                 //   },
                 // });
-                console.log(id)
+                console.log(id);
               }}
               variant="outlined"
               color="primary"
             >
               Upvote
             </Button>
-            <Button onClick={() => {
-              let id = parseInt(issue.id)
-              console.log(id)
+            <Button
+              onClick={() => {
+                let id = parseInt(issue.id);
+                console.log(id);
                 // axios({
                 //   url: api_url,
                 //   method: 'post',
@@ -113,8 +110,10 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
                 //   }`,
                 //   },
                 // });
-            }
-              } variant="outlined" color="primary">
+              }}
+              variant="outlined"
+              color="primary"
+            >
               Report
             </Button>
           </section>
