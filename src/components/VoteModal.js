@@ -9,7 +9,14 @@ import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 
-export default function VoteModal({ renderVoteModal, issue, handleIssue, handleRenderVote }) {
+
+export default function VoteModal({
+  renderVoteModal,
+  issue,
+  handleIssue,
+  handleRenderVote,
+  handleUpvote,
+}) {
   const [open, setOpen] = React.useState(renderVoteModal ? true : false);
   const [selectedIssue, setSelectedIssue] = React.useState(issue);
   const [renderTitle, setRenderTitle] = React.useState(issue.title ? issue.title : null);
@@ -21,8 +28,10 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
     setOpen(false);
     handleRenderVote();
   };
-  const handleChange = (event) => {
-    console.log('hello');
+  const handlevoted = () => {
+    setOpen(false);
+    handleRenderVote();
+    handleUpvote();
   };
 
   return (
@@ -32,6 +41,12 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
+          fullWidth={true}
+          maxWidth={'md'}
+          style={{
+            display: 'grid',
+            justifyContent: 'center',
+          }}
         >
           <Grid item>
             <div className="vote-title" style={{ display: 'flex', justifyContent: 'center', height: '8vh'}}>
@@ -70,7 +85,7 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
               marginBottom: 'inherit',
             }}
           >
-            <Button
+            <Button variant="contained" color="primary">
               onClick={(e) => {
                 let id = parseInt(issue.id);
                 // axios({
@@ -88,12 +103,10 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
                 // });
                 console.log(id);
               }}
-              variant="outlined"
-              color="primary"
             >
               Upvote
             </Button>
-            <Button
+            <Button variant="contained" color="secondary">
               onClick={() => {
                 let id = parseInt(issue.id);
                 console.log(id);
@@ -111,8 +124,6 @@ export default function VoteModal({ renderVoteModal, issue, handleIssue, handleR
                 //   },
                 // });
               }}
-              variant="outlined"
-              color="primary"
             >
               Report
             </Button>

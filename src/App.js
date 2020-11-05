@@ -12,7 +12,6 @@ import {
   AppBar,
   IconButton,
   Typography,
-  // Card demos
   Grid,
   Card,
   CardContent,
@@ -32,6 +31,7 @@ const darkTheme = createMuiTheme({
   },
 });
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -44,12 +44,20 @@ class App extends React.Component {
       issueSelected: {},
       isOpen: false,
       userData: [],
-      passDownData: [],
+      upVote: false,
       user: 16,
+      issueSubmitted: false,
+      postIssueModal: false,
+
     };
     this.handleRenderVote = this.handleRenderVote.bind(this);
     this.renderPointsModal = this.renderPointsModal.bind(this);
     this.handleIssueSelected = this.handleIssueSelected.bind(this);
+    this.handleUpvote = this.handleUpvote.bind(this);
+    this.handleIssueSubmitted = this.handleIssueSubmitted.bind(this);
+    this.handleRenderPointsModalPostIssue = this.handleRenderPointsModalPostIssue.bind(this);
+  }
+  handleIssueSelected(issue) {
     this.togglePosition = this.togglePosition.bind(this);
   }
   // get all issues cus no range yet :)
@@ -100,16 +108,38 @@ class App extends React.Component {
   }
 
   handleRenderVote() {
+    // console.log("this is issue back", issue)
+
+
+  handleRenderVote() {
     this.setState({
       renderVoteModal: !this.state.renderVoteModal,
     });
   }
 
-  renderPointsModal() {
+  handleIssueSubmitted() {
     this.setState({
-      renderPointsModal: true,
+      issueSubmitted: !this.state.issueSubmitted,
     });
   }
+  handleUpvote() {
+    this.setState({
+      renderPointsModal: !this.state.renderPointsModal,
+      upVote: !this.state.upVote,
+    });
+  }
+  renderPointsModal() {
+    console.log('clicked Points');
+    this.setState({
+      renderPointsModal: !this.state.renderPointsModal,
+      upVote: !this.state.upVote,
+    });
+  }
+  handleRenderPointsModalPostIssue() {
+    console.log('clicked Points');
+    this.setState({
+      postIssueModal: !this.state.postIssueModal,
+
   // toggles the position of the list-view menu
   togglePosition() {
     const { isOpen } = this.state;
@@ -122,20 +152,38 @@ class App extends React.Component {
   }
 
   render() {
-    let name = this.state.userData[0] ? this.state.userData[0].first_name : null;
-    let points = this.state.userData[0] ? this.state.userData[0].points : null;
+      let name = this.state.userData[0] ? this.state.userData[0].first_name : null;
+      let points = this.state.userData[0] ? this.state.userData[0].points : null;
+
     const renderVote = this.state.renderVoteModal ? (
       <VoteModal
+        upVote={this.state.upVote}
         handleRenderVote={this.handleRenderVote}
         renderVoteModal={this.state.renderVoteModal}
+        handleUpvote={this.handleUpvote}
         handleIssue={this.handleIssueSelected}
         issue={this.state.issueSelected}
       />
-    ) : null;
+    ) : null;   
 
     const renderPoints = this.state.renderPointsModal ? (
-      <PointsModal renderPointsModal={this.state.renderPointsModal} />
+      <PointsModal
+        upVote={this.state.upVote}
+        handleIssueSubmitted={this.handleIssueSubmitted}
+        renderPointsModal={this.renderPointsModal}
+        issueSubmitted={this.state.issueSubmitted}
+      />
     ) : null;
+    
+    const renderPointsModalPostIssue = this.state.postIssueModal ? (
+      <PointsModalPostIssue
+        postIssueModal={this.state.postIssueModal}
+        upVote={this.state.upVote}
+        handleIssueSubmitted={this.handleIssueSubmitted}
+        handleRenderPointsModalPostIssue={this.handleRenderPointsModalPostIssue}
+        issueSubmitted={this.state.issueSubmitted}
+      />
+    ) : null;    
 
     //renders the cards of self posts
     let personalData = this.state.userData[0]
@@ -218,11 +266,13 @@ class App extends React.Component {
             handleRenderVote={this.handleRenderVote}
             handleIssue={this.handleIssueSelected}
             renderPointsModal={this.renderPointsModal}
-            passDownData={this.state.passDownData}
             userId={this.state.user}
+            handleIssueSubmitted={this.handleIssueSubmitted}
+            handleRenderPointsModalPostIssue={this.handleRenderPointsModalPostIssue}
           />
           {renderVote}
           {renderPoints}
+          {renderPointsModalPostIssue}
         </div>
       </ThemeProvider>
     );

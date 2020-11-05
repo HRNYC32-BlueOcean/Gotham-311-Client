@@ -6,12 +6,19 @@ import DialogContent from '@material-ui/core/DialogContent';
 import SelectDropdown from './SelectDropdown';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
+import SelectTypeDropdown from './SelectTypeDropdown';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 
-export default function UploadModal({ renderPointsModal, location, userId}) {
+
+export default function UploadModal({
+  renderPointsModal,
+  handleIssueSubmitted,
+  handleRenderPointsModalPostIssue, location, userId
+}) {
   const [open, setOpen] = React.useState(false);
   const [image, setImage] = React.useState(null);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -28,7 +35,7 @@ export default function UploadModal({ renderPointsModal, location, userId}) {
   return (
     <div>
       <Button
-        variant="outlined"
+        variant="contained"
         style={{ width: '100%', height: '4vh' }}
         color="primary"
         onClick={handleClickOpen}
@@ -40,10 +47,8 @@ export default function UploadModal({ renderPointsModal, location, userId}) {
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
-          style={{
-            display: 'grid',
-            justifyContent: 'center',
-          }}
+          fullWidth={true}
+          maxWidth={'md'}
         >
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <DialogTitle id="simple-dialog-title">
@@ -84,6 +89,7 @@ export default function UploadModal({ renderPointsModal, location, userId}) {
               <Grid item>
                 <DialogContent>
                   <SelectDropdown />
+                  <SelectTypeDropdown />
                 </DialogContent>
               </Grid>
               <Grid item>
@@ -110,6 +116,7 @@ export default function UploadModal({ renderPointsModal, location, userId}) {
           >
             <Button
               onClick={() => {
+                
                 let item = `mutation{
                   createIssue(
                   title: ${null}
@@ -126,10 +133,10 @@ export default function UploadModal({ renderPointsModal, location, userId}) {
                   title
                 }
                 `
-                renderPointsModal();
+                handleRenderPointsModalPostIssue();
                 handleClose();
               }}
-              variant="outlined"
+              variant="contained"
               color="primary"
             >
               Submit Issue
