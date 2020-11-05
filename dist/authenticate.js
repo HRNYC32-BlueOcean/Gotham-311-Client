@@ -1,8 +1,7 @@
+/* eslint-disable object-shorthand */
+/* eslint-disable func-names */
+/* eslint-disable no-undef */
 (function () {
-  // console.log('hi from script');
-  // console.log('cookies:', document.cookie);
-
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
     apiKey: 'AIzaSyDgQ_XKve5qbqGrBzIJUz68jZq1jdfc9wE',
     authDomain: 'blue-ocean-11c09.firebaseapp.com',
@@ -17,34 +16,58 @@
   firebase.initializeApp(firebaseConfig);
   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 
-  var uiConfig = {
+  const apiURL = 'https://nameless-mountain-18450.herokuapp.com/';
+  const createUserMutation = function (firstName, lastName, email) {
+    return `mutation {
+        createUser( 
+          first_name: "${firstName}"
+          last_name: "${lastName}"
+          email: "${email}"
+          phone: "''"
+        ){
+          id
+        }
+      }`;
+  };
+
+  const uiConfig = {
     callbacks: {
       // This method runs upon a successful login
       signInSuccessWithAuthResult: function (authResult) {
+        console.log(authResult);
         let idToken = null;
-        let userInfo = authResult.additionalUserInfo;
+        const userInfo = authResult.additionalUserInfo.profile;
+        const newUser = authResult.additionalUserInfo.isNewUser;
+        window.localStorage.setItem('GothamEmail', userInfo.email);
         firebase
           .auth()
           .currentUser.getIdToken(true)
           .then((id) => {
+            //this is the JWT!
             idToken = id;
+            console.log(idToken);
             return axios.post('/cookie', { idToken });
           })
           .then((cookie) => {
-            const newUser = userInfo.isNewUser;
             if (newUser) {
               console.log('new user!');
-              const body = {
-                idToken: idToken,
-                profile: userInfo.profile,
-              };
-              //   return axios.post('/user', body);
-            } else {
-              console.log('not new user');
+              const queryString = createUserMutation(
+                userInfo.given_name,
+                userInfo.family_name,
+                userInfo.email
+              );
+              console.log(queryString);
+              return axios.post(apiURL, {
+                query: queryString,
+              });
             }
           })
-          .then(() => {
-            location.href = '/';
+          .then((response) => {
+            if (response) {
+              const userId = response.data.data.createUser.id;
+              console.log('userId', userId);
+            }
+            // location.href = '/';
             console.log('routed');
           })
           .catch(function (error) {
