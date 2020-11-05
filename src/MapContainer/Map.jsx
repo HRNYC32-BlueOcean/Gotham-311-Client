@@ -7,6 +7,8 @@ import UploadModal from '../components/UploadModal';
 import dummyData from '../Cards/dummydata';
 import VoteModal from '../components/VoteModal';
 import axios from 'axios';
+
+
 const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 
 const mapStyles = {
@@ -126,7 +128,6 @@ export class MapContainer extends Component {
           location={this.state.markerPosition}
           userId={this.props.userId}
         />
-        
         <Cards
           handleRenderVote={this.props.handleRenderVote}
           handleIssue={this.props.handleIssue}

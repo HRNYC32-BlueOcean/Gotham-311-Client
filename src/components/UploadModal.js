@@ -116,7 +116,6 @@ export default function UploadModal({
           >
             <Button
               onClick={() => {
-                
                 let item = `mutation{
                   createIssue(
                   title: ${null}

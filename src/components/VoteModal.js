@@ -26,9 +26,9 @@ export default function VoteModal({
 
   const handleClose = () => {
     setOpen(false);
-    handleRenderVote();
   };
-  const handlevoted = () => {
+
+  const handleVoted = () => {
     setOpen(false);
     handleRenderVote();
     handleUpvote();
@@ -102,6 +102,7 @@ export default function VoteModal({
                 //   },
                 // });
                 console.log(id);
+                handleVoted()
               }}
             >
               Upvote
@@ -123,6 +124,7 @@ export default function VoteModal({
                 //   }`,
                 //   },
                 // });
+                handleClose()
               }}
             >
               Report

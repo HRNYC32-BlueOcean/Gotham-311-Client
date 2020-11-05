@@ -30,10 +30,16 @@ export default function SelectTypeDropdown() {
           id="demo-simple-select"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Bronx</MenuItem>
-          <MenuItem value={20}>Brooklyn</MenuItem>
-          <MenuItem value={30}>Queens</MenuItem>
-          <MenuItem value={30}>Manhattan</MenuItem>
+          <MenuItem value={1}>Open Manhole</MenuItem>
+          <MenuItem value={2}>Pothole</MenuItem>
+          <MenuItem value={3}>Open Hydrant</MenuItem>
+          <MenuItem value={4}>Assholes</MenuItem>
+          <MenuItem value={5}>Social Conglomeration</MenuItem>
+          <MenuItem value={6}>Drunk People</MenuItem>
+          <MenuItem value={7}>Traffic Disturbance</MenuItem>
+          <MenuItem value={8}>Power Outage</MenuItem>
+          <MenuItem value={9}>Loud Music</MenuItem>
+          <MenuItem value={10}>Hackers Hacking</MenuItem>
         </Select>
       </FormControl>
       </div>

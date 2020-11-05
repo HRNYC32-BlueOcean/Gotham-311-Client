@@ -20,6 +20,7 @@ import {
   CssBaseLine,
 } from '@material-ui/core';
 import axios from 'axios';
+import PointsModalPostIssue from './components/PointsModalPostIssue'
 
 // Imports for testing new cards:
 import dummyData from './Cards/dummydata';
