@@ -6,13 +6,16 @@ import DialogContent from '@material-ui/core/DialogContent';
 import SelectDropdown from './SelectDropdown';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
-import SelectTypeDropdown from "./SelectTypeDropdown"
+import SelectTypeDropdown from './SelectTypeDropdown';
 import Grid from '@material-ui/core/Grid';
 
-
-export default function UploadModal({ renderPointsModal, handleIssueSubmitted, handleRenderPointsModalPostIssue}) {
+export default function UploadModal({
+  renderPointsModal,
+  handleIssueSubmitted,
+  handleRenderPointsModalPostIssue,
+}) {
   const [open, setOpen] = React.useState(false);
-  const [image, setImage] = React.useState(null)
+  const [image, setImage] = React.useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -41,7 +44,7 @@ export default function UploadModal({ renderPointsModal, handleIssueSubmitted, h
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
           fullWidth={true}
-          maxWidth = {'md'}
+          maxWidth={'md'}
           // style={{
           //   display: 'grid',
           //   justifyContent: 'center',
@@ -54,27 +57,28 @@ export default function UploadModal({ renderPointsModal, handleIssueSubmitted, h
           </div>
           <Grid item>
             <DialogContent className="content">
-              <div className="image-uploader" style={{ "display":"flex", "justifyContent":"center"}}>
-              <input
-                id="image-file"
-                type="file"
-                name="photo"
-                accept="image/*;capture=camera"
-                onChange={(e) => {
-                  var formData = new FormData();
-                  var imagefile = document.querySelector('#image-file');
-                  formData.append('image', imagefile.files[0]);
-                }}></input>
+              <div className="image-uploader" style={{ display: 'flex', justifyContent: 'center' }}>
+                <input
+                  id="image-file"
+                  type="file"
+                  name="photo"
+                  accept="image/*;capture=camera"
+                  onChange={(e) => {
+                    var formData = new FormData();
+                    var imagefile = document.querySelector('#image-file');
+                    formData.append('image', imagefile.files[0]);
+                  }}
+                ></input>
               </div>
               <Grid item>
                 <DialogContent>
-                  <ImageContainer image={image}/>
+                  <ImageContainer image={image} />
                 </DialogContent>
               </Grid>
               <Grid item>
                 <DialogContent>
                   <SelectDropdown />
-                  <SelectTypeDropdown/>
+                  <SelectTypeDropdown />
                 </DialogContent>
               </Grid>
               <Grid item>
@@ -101,7 +105,7 @@ export default function UploadModal({ renderPointsModal, handleIssueSubmitted, h
           >
             <Button
               onClick={() => {
-                handleRenderPointsModalPostIssue()
+                handleRenderPointsModalPostIssue();
                 handleClose();
               }}
               variant="contained"
