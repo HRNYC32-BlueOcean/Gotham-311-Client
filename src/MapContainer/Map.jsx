@@ -62,6 +62,9 @@ export class MapContainer extends Component {
                 photo_url
                 create_date
                 upvotes_count
+                resolution_status{
+                  name
+                }
                 borough{
                     name
                   }

@@ -204,12 +204,12 @@ class App extends React.Component {
             >
               <CardContent>
                 <Typography color="textSecondary" gutterBottom>
-                  {moment(e.create_date).format('MMMM D, YYYY')}
+                  {moment.unix(e.create_date / 1000).format('MMMM D, YYYY')}
                 </Typography>
                 <Typography variant="h3" component="h2">
                   {e.title}
                 </Typography>
-                <Typography color="textSecondary">{e.resolution_status.name}</Typography>
+                <Typography color="textSecondary">Resolution Status: {e.resolution_status.name}</Typography>
                 <Typography variant="h4" component="h4">
                   {e.description}
                   <br />
