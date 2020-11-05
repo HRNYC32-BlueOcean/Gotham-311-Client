@@ -9,7 +9,7 @@ import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 
 
-export default function UploadModal({ renderPointsModal }) {
+export default function UploadModal({ renderPointsModal, handleIssueSubmitted, handleRenderPointsModalPostIssue}) {
   const [open, setOpen] = React.useState(false);
   const [image, setImage] = React.useState(null)
 
@@ -98,7 +98,7 @@ export default function UploadModal({ renderPointsModal }) {
           >
             <Button
               onClick={() => {
-                renderPointsModal();
+                handleRenderPointsModalPostIssue()
                 handleClose();
               }}
               variant="outlined"

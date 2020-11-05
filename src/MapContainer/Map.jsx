@@ -64,7 +64,8 @@ export class MapContainer extends Component {
         </div>
         <UploadModal
           props={this.state.markerPosition}
-          renderPointsModal={this.props.renderPointsModal}
+          handleIssueSubmitted={this.props.handleIssueSubmitted}
+          handleRenderPointsModalPostIssue={this.props.handleRenderPointsModalPostIssue}
         />
         <Cards
           handleRenderVote={this.props.handleRenderVote}

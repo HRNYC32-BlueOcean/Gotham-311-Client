@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 
-export default function VoteModal({renderVoteModal, issue, handleIssue, handleRenderVote}) {
+export default function VoteModal({renderVoteModal, issue, handleIssue, handleRenderVote, handleUpvote}) {
   const [open, setOpen] = React.useState(renderVoteModal ? true : false);
   const [selectedIssue, setSelectedIssue] = React.useState(issue);
   const [renderTitle, setRenderTitle] = React.useState(issue.title ? issue.title : null);
@@ -21,8 +21,10 @@ export default function VoteModal({renderVoteModal, issue, handleIssue, handleRe
     setOpen(false)
     handleRenderVote()
   };
-  const handleChange = (event) => {
-    console.log('hello');
+  const handlevoted = () => {
+    setOpen(false)
+    handleRenderVote()
+    handleUpvote()
   };
 
   return (
@@ -74,7 +76,7 @@ export default function VoteModal({renderVoteModal, issue, handleIssue, handleRe
               marginBottom: 'inherit',
             }}
           >
-            <Button onClick={handleClose} variant="outlined" color="primary">
+            <Button onClick={handlevoted} variant="outlined" color="primary">
               upvote
             </Button>
             <Button

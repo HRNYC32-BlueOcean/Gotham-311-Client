@@ -5,9 +5,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PointsContainer from "./PointsContainer.jsx";
 
-export default function PointsModal({renderPointsModal, upVote, issueSubmitted, handleIssueSubmitted}) {
-  const [open, setOpen] = React.useState(renderPointsModal ? true : false);
-  const[points, setPoints] = React.useState(1)
+export default function PointsModalPostIssue({postIssueModal, handleRenderPointsModalPostIssue}) {
+  const [open, setOpen] = React.useState(postIssueModal ? true : false);
+  const[points, setPoints] = React.useState(10)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,8 +38,7 @@ export default function PointsModal({renderPointsModal, upVote, issueSubmitted, 
           <div className="close-points-button" style={{ "display":"flex", "justifyContent":"center"}}>
           <Button onClick={() => {
             handleClose()
-            renderPointsModal()
-            handleIssueSubmitted()
+            handleRenderPointsModalPostIssue()
             }} variant="outlined" color="primary">
             Close
           </Button>
