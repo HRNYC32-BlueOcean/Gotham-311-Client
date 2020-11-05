@@ -12,7 +12,6 @@ import axios from 'axios';
 export default function UploadModal({ renderPointsModal, location }) {
   const [open, setOpen] = React.useState(false);
   const [image, setImage] = React.useState(null);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -111,14 +110,19 @@ export default function UploadModal({ renderPointsModal, location }) {
           >
             <Button
               onClick={() => {
-                let item = {
-                  title: null,
-                  description: null,
-                  createdAt: null,
-                  location: location,
-                  borough: null,
-                  image: null,
+                let item = `{
+                  createIssue(
+                  title: ${null}
+                  description: ${null}
+                  photo_url: ${image}
+                  user_id: ${null}
+                  issue_type_id: ${null}
+                  borough_id: ${null}
+                  lat: ${location.lat}
+                  lng: ${location.lng}
+                  )
                 }
+                `
                 renderPointsModal();
                 handleClose();
               }}

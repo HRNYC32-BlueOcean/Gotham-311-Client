@@ -7,19 +7,19 @@ import SelectDropdown from './SelectDropdown';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
+const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 
-export default function VoteModal({renderVoteModal, issue, handleIssue, handleRenderVote}) {
+export default function VoteModal({ renderVoteModal, issue, handleIssue, handleRenderVote }) {
   const [open, setOpen] = React.useState(renderVoteModal ? true : false);
   const [selectedIssue, setSelectedIssue] = React.useState(issue);
   const [renderTitle, setRenderTitle] = React.useState(issue.title ? issue.title : null);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false)
-    handleRenderVote()
+    setOpen(false);
+    handleRenderVote();
   };
   const handleChange = (event) => {
     console.log('hello');
@@ -32,34 +32,33 @@ export default function VoteModal({renderVoteModal, issue, handleIssue, handleRe
           open={open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
-          style={{
-            display: 'grid',
-            justifyContent: 'center',
-          }}
         >
-          <div style={{ "display":"flex", "justifyContent":"center"}}>
-            <DialogTitle id="simple-dialog-title">
-                {renderTitle}
-            </DialogTitle>
-          </div>
+          <Grid item>
+            <div className="vote-title" style={{ display: 'flex', justifyContent: 'center', height: '8vh'}}>
+              <p className="title">{issue.title}</p>
+            </div>
+          </Grid>
           <Grid item>
             <DialogContent className="content">
               <Grid item>
                 <DialogContent>
-                  <ImageContainer image={issue.image}/>
+                  <ImageContainer image={issue.image} />
                 </DialogContent>
               </Grid>
               <Grid item>
-                <DialogContent>
-                  {/* <SelectDropdown /> */}
-                  <div className="vote-description" style={{ "display":"flex", "justifyContent":"center"}}>
-                  <h3>{selectedIssue.borough}</h3>
-                  </div>
-                </DialogContent>
+                <div
+                  className="vote-description"
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                >
+                  <p className="borough">{issue.borough.name}</p>
+                </div>
               </Grid>
               <Grid item>
-                <div className="vote-description" style={{ "display":"flex", "justifyContent":"center"}}>
-                <p>{issue.description}</p>
+                <div
+                  className="vote-description"
+                  style={{ display: 'flex', justifyContent: 'center', padding: '0' }}
+                >
+                  <p className="description">{issue.description}</p>
                 </div>
               </Grid>
             </DialogContent>
@@ -71,11 +70,47 @@ export default function VoteModal({renderVoteModal, issue, handleIssue, handleRe
               marginBottom: 'inherit',
             }}
           >
-            <Button onClick={handleClose} variant="outlined" color="primary">
+            <Button
+              onClick={(e) => {
+                let id = parseInt(issue.id);
+                // axios({
+                //   url: api_url,
+                //   method: 'post',
+                //   data: {
+                //     query: `{
+                //       updateIssue {
+                //         id: ${id}
+                //         upvotes_count: 1
+                //       }
+                //     }
+                //   }`,
+                //   },
+                // });
+                console.log(id);
+              }}
+              variant="outlined"
+              color="primary"
+            >
               Upvote
             </Button>
             <Button
-              onClick={handleClose}
+              onClick={() => {
+                let id = parseInt(issue.id);
+                console.log(id);
+                // axios({
+                //   url: api_url,
+                //   method: 'post',
+                //   data: {
+                //     query: `{
+                //       updateIssue {
+                //         id: ${id}
+                //         reported_count: 1
+                //       }
+                //     }
+                //   }`,
+                //   },
+                // });
+              }}
               variant="outlined"
               color="primary"
             >

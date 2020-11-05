@@ -22,7 +22,7 @@ class IndividualCards extends React.Component {
 
   componentDidMount() {
     let address;
-    Geocode.fromLatLng(this.props.info.lat, this.props.info.lng).then((response) => {
+    Geocode.fromLatLng(this.props.info.coordinates.lat, this.props.info.coordinates.lng).then((response) => {
       address = response.results[0].formatted_address;
       this.setState({
         address: address,
@@ -53,7 +53,7 @@ class IndividualCards extends React.Component {
               <Typography color="textSecondary">{this.state.address}</Typography>
               <Typography variant="body2" component="p">
                 {this.props.info.description}
-                <br />
+                <br/>
               </Typography>
             </CardContent>
           </Card>

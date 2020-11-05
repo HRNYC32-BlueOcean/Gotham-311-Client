@@ -33,7 +33,7 @@ export default function SelectDropdown() {
           <MenuItem value={10}>Bronx</MenuItem>
           <MenuItem value={20}>Brooklyn</MenuItem>
           <MenuItem value={30}>Queens</MenuItem>
-          <MenuItem value={30}>Manhattan</MenuItem>
+          <MenuItem value={40}>Manhattan</MenuItem>
         </Select>
       </FormControl>
       </div>
