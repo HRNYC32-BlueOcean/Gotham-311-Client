@@ -6,6 +6,7 @@ import UploadModal from './components/UploadModal.js';
 import PointsModal from './components/PointsModal.js';
 import moment from 'moment';
 import {
+  Box,
   Toolbar,
   Button,
   AppBar,
@@ -53,42 +54,7 @@ class App extends React.Component {
   }
   // get all issues cus no range yet :)
   componentDidMount() {
-    this.getAllIssues();
     this.getUserIssues(this.state.user);
-  }
-
-  getAllIssues() {
-    axios({
-      url: api_url,
-      method: 'post',
-      data: {
-        query: `{
-              getIssues {
-                id
-                title
-                description
-                photo_url
-                create_date
-                borough{
-                    name
-                  }
-                coordinates{
-                  lat
-                  lng
-                }
-              }
-            }`,
-      },
-    }).then((res) => {
-      this.setState(
-        {
-          passDownData: res.data.data.getIssues,
-        },
-        () => {
-          return;
-        }
-      );
-    });
   }
 
   getUserIssues(id) {
@@ -115,17 +81,15 @@ class App extends React.Component {
                   }
                 }
               }
-            }`
+            }`,
       },
     }).then((res) => {
       this.setState(
         {
           userData: res.data.data.getUser,
         },
-        () => {
-          console.log(res.data.data)
-        }
-      )
+        () => {}
+      );
     });
   }
 
@@ -158,8 +122,8 @@ class App extends React.Component {
   }
 
   render() {
-    let name = this.state.userData[0] ? this.state.userData[0].first_name : null
-    let points = this.state.userData[0] ? this.state.userData[0].points : null
+    let name = this.state.userData[0] ? this.state.userData[0].first_name : null;
+    let points = this.state.userData[0] ? this.state.userData[0].points : null;
     const renderVote = this.state.renderVoteModal ? (
       <VoteModal
         handleRenderVote={this.handleRenderVote}
@@ -173,7 +137,7 @@ class App extends React.Component {
       <PointsModal renderPointsModal={this.state.renderPointsModal} />
     ) : null;
 
-        //renders the cards of self posts
+    //renders the cards of self posts
     let personalData = this.state.userData[0]
       ? this.state.userData[0].issues.map((e, i) => (
           <Grid item xs={11} lg={11}>
@@ -204,7 +168,6 @@ class App extends React.Component {
 
     return (
       <ThemeProvider theme={darkTheme}>
-        {/* <CssBaseline/> */}
         <div
           ref={this.menuRef}
           style={{
@@ -218,9 +181,11 @@ class App extends React.Component {
             paddingTop: '74px',
           }}
         >
-          <Grid container direction="column" justify="flex-start" alignItems="center" spacing={2}>
-            {personalData}
-          </Grid>
+          <Box style={{ maxHeight: '94vh', overflow: 'auto' }}>
+            <Grid container direction="column" justify="flex-start" alignItems="center" spacing={2}>
+              {personalData}
+            </Grid>
+          </Box>
         </div>
         <AppBar
           position="static"
@@ -243,9 +208,7 @@ class App extends React.Component {
             >
               See My Posts
             </IconButton>
-            <Typography variant="h6">
-              NYAAN Gotham 311: Welcome {name}
-            </Typography>
+            <Typography variant="h6">NYAAN Gotham 311: Welcome {name}</Typography>
             <Typography variant="h6">You currently have {points} points</Typography>
           </Toolbar>
         </AppBar>

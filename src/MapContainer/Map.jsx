@@ -33,8 +33,8 @@ export class MapContainer extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.markerPosition !== this.state.markerPosition) {
       let upperLat = this.state.markerPosition.lat + 0.04;
-      let upperLng = this.state.markerPosition.lat - 0.04;
-      let underLat = this.state.markerPosition.lng + 0.04;
+      let upperLng = this.state.markerPosition.lng - 0.04;
+      let underLat = this.state.markerPosition.lat + 0.04;
       let underLng = this.state.markerPosition.lng - 0.04;
       console.log(upperLat, upperLng, underLat, underLng)
       this.getAllIssues();
