@@ -85,7 +85,7 @@ export default function VoteModal({
               marginBottom: 'inherit',
             }}
           >
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary"
               onClick={(e) => {
                 let id = parseInt(issue.id);
                 // axios({
@@ -106,7 +106,7 @@ export default function VoteModal({
             >
               Upvote
             </Button>
-            <Button variant="contained" color="secondary">
+            <Button variant="contained" color="secondary"
               onClick={() => {
                 let id = parseInt(issue.id);
                 console.log(id);
