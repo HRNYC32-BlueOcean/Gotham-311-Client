@@ -86,7 +86,6 @@ export class MapContainer extends Component {
     if (this.state.passDownData.length > 0) {
       for (let i = 0; i < 10; i++) {
         if (this.state.passDownData[i] !== undefined) {
-          console.log(this.state.passDownData[i])
           let position = this.state.passDownData[i].coordinates
           markers.push(
             <Marker
