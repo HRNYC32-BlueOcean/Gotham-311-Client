@@ -100,8 +100,8 @@ export class MapContainer extends Component {
                 fillOpacity: 1,
               }}
               onClick={() => {
-                this.props.handleRenderVote();
                 this.props.handleIssue(this.state.passDownData[i]);
+                this.props.handleRenderVote();
               }}
             />
           );
