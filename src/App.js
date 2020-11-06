@@ -236,7 +236,9 @@ class App extends React.Component {
             <Typography variant="h6">NYAAN Gotham 311: Welcome {this.state.name}</Typography>
             <Typography variant="h6">You currently have {this.state.points} points</Typography>
             <div type="button" onClick={() => {
-              axios.post('/logout')
+              axios.post('/logout').then(() => {
+                location.href = '/login'
+              })
             }}>LOGOUT</div>
           </Toolbar>
         </AppBar>
