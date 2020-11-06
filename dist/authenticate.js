@@ -36,14 +36,15 @@
       signInSuccessWithAuthResult: function (authResult) {
         console.log(authResult);
         let idToken = null;
-        const userInfo = authResult.additionalUserInfo.profile;
+        const userInfo = authResult.user;
         const newUser = authResult.additionalUserInfo.isNewUser;
+        console.log(authResult, authResult.user);
         window.localStorage.setItem('GothamEmail', userInfo.email);
         firebase
           .auth()
           .currentUser.getIdToken(true)
           .then((id) => {
-            //this is the JWT!
+            // this is the JWT!
             idToken = id;
             console.log(idToken);
             return axios.post('/cookie', { idToken });
@@ -51,11 +52,9 @@
           .then((cookie) => {
             if (newUser) {
               console.log('new user!');
-              const queryString = createUserMutation(
-                userInfo.given_name,
-                userInfo.family_name,
-                userInfo.email
-              );
+              const firstName = userInfo.displayName.split(' ')[0];
+              const lastName = userInfo.displayName.split(' ')[1];
+              const queryString = createUserMutation(firstName, lastName, userInfo.email);
               console.log(queryString);
               return axios.post(apiURL, {
                 query: queryString,
@@ -96,8 +95,4 @@
   //start auth
   var ui = new firebaseui.auth.AuthUI(firebase.auth());
   ui.start('#firebaseui-auth-container', uiConfig);
-
-  // firebase.auth().onAuthStateChanged(function (user) {
-  //   console.log('AUTH STATE CHANGE');
-  // });
 })();
