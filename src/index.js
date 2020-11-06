@@ -7,7 +7,6 @@ import axios from 'axios';
 const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 
 let email = window.localStorage.getItem('GothamEmail');
-console.log(email);
 
 axios({
   url: api_url,
@@ -36,8 +35,7 @@ axios({
   },
 })
   .then((res) => {
-    console.log(res.data.data.getUser[0]);
     var mountNode = document.getElementById('app');
-    ReactDOM.render(<App userData={res.data.data.getUser[0]} />, mountNode);
+    ReactDOM.render(<App userData={res.data.data.getUser[0]} email={email}/>, mountNode);
   })
   .catch((err) => console.log(err));

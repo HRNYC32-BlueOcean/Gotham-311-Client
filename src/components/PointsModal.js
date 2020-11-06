@@ -4,6 +4,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PointsContainer from './PointsContainer.jsx';
+import axios from 'axios'
+const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 
 
 export default function PointsModal({
@@ -11,20 +13,37 @@ export default function PointsModal({
   upVote,
   issueSubmitted,
   handleIssueSubmitted,
+  id,
+  points,
+  triggerChange
 }) {
   const [open, setOpen] = React.useState(renderPointsModal ? true : false);
-  const [points, setPoints] = React.useState(1);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
+    triggerChange(1)
+    axios({
+      url: api_url,
+      method: 'post',
+      data: {
+        query: `mutation {
+          updateUser(
+            id: ${parseInt(id)}
+            points: ${points + 1}
+             )
+          }
+      `
+      },
+    })
     setOpen(false);
   };
   const handleChange = (event) => {
     console.log('hello');
   };
+
 
   return (
    <div>

@@ -149,7 +149,6 @@ export default function UploadModal({
                   title
                 }
                 }`;
-                console.log(item)
                   axios({
                     url: api_url,
                     method: 'post',
@@ -157,7 +156,6 @@ export default function UploadModal({
                       query: item
                       }
                   }).then((res) => {
-                  console.log(res)
                   handleRenderPointsModalPostIssue();
                   handleClose();
                   })

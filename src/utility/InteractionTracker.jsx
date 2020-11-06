@@ -4,7 +4,6 @@ import axios from 'axios';
 class InteractionTracker extends React.Component {
   constructor(props) {
     super(props);
-
     this.postInteraction = this.postInteraction.bind(this);
   }
 

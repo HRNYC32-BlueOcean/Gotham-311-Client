@@ -20,7 +20,7 @@ import {
   CssBaseLine,
 } from '@material-ui/core';
 import axios from 'axios';
-import PointsModalPostIssue from './components/PointsModalPostIssue'
+import PointsModalPostIssue from './components/PointsModalPostIssue';
 
 // Imports for testing new cards:
 import dummyData from './Cards/dummydata';
@@ -31,7 +31,6 @@ const darkTheme = createMuiTheme({
     type: 'dark',
   },
 });
-
 
 class App extends React.Component {
   constructor(props) {
@@ -49,6 +48,8 @@ class App extends React.Component {
       user: this.props.userData.id,
       issueSubmitted: false,
       postIssueModal: false,
+      points: this.props.userData.points,
+      name: this.props.userData.first_name
     };
 
     this.handleRenderVote = this.handleRenderVote.bind(this);
@@ -58,6 +59,7 @@ class App extends React.Component {
     this.handleIssueSubmitted = this.handleIssueSubmitted.bind(this);
     this.handleRenderPointsModalPostIssue = this.handleRenderPointsModalPostIssue.bind(this);
     this.togglePosition = this.togglePosition.bind(this);
+    this.changingPoints = this.changingPoints.bind(this);
   }
 
   handleIssueSelected(issue) {
@@ -65,7 +67,6 @@ class App extends React.Component {
       issueSelected: issue,
     });
   }
-
 
   handleIssueSelected(issue) {
     this.setState({
@@ -102,7 +103,7 @@ class App extends React.Component {
   handleRenderPointsModalPostIssue() {
     this.setState({
       postIssueModal: !this.state.postIssueModal,
-    })
+    });
   }
 
   // toggles the position of the list-view menu
@@ -116,10 +117,13 @@ class App extends React.Component {
     this.setState({ isOpen: !isOpen });
   }
 
-  render() {
-      let name = this.state.userData[0] ? this.state.userData[0].first_name : null;
-      let points = this.state.userData[0] ? this.state.userData[0].points : null;
+  changingPoints(num) {
+    this.setState({
+      points: this.state.points + num
+    })
+  }
 
+  render() {
     const renderVote = this.state.renderVoteModal ? (
       <VoteModal
         upVote={this.state.upVote}
@@ -137,6 +141,9 @@ class App extends React.Component {
         handleIssueSubmitted={this.handleIssueSubmitted}
         renderPointsModal={this.renderPointsModal}
         issueSubmitted={this.state.issueSubmitted}
+        points={this.state.points}
+        id={this.state.user}
+        triggerChange={this.changingPoints}
       />
     ) : null;
 
@@ -147,6 +154,9 @@ class App extends React.Component {
         handleIssueSubmitted={this.handleIssueSubmitted}
         handleRenderPointsModalPostIssue={this.handleRenderPointsModalPostIssue}
         issueSubmitted={this.state.issueSubmitted}
+        points={this.state.points}
+        id={this.state.user}
+        triggerChange={this.changingPoints}
       />
     ) : null;
 
@@ -168,7 +178,9 @@ class App extends React.Component {
                 <Typography variant="h3" component="h2">
                   {e.title}
                 </Typography>
-                <Typography color="textSecondary">Resolution Status: {e.resolution_status.name}</Typography>
+                <Typography color="textSecondary">
+                  Resolution Status: {e.resolution_status.name}
+                </Typography>
                 <Typography variant="h4" component="h4">
                   {e.description}
                   <br />
@@ -221,8 +233,8 @@ class App extends React.Component {
             >
               See My Posts
             </IconButton>
-            <Typography variant="h6">NYAAN Gotham 311: Welcome {name}</Typography>
-            <Typography variant="h6">You currently have {points} points</Typography>
+            <Typography variant="h6">NYAAN Gotham 311: Welcome {this.state.name}</Typography>
+            <Typography variant="h6">You currently have {this.state.points} points</Typography>
           </Toolbar>
         </AppBar>
         <div className="container">
