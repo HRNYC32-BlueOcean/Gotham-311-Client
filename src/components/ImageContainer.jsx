@@ -14,7 +14,6 @@ const useStyles = makeStyles({
 
 export default function ImageContainer(props) {
   const classes = useStyles();
-  console.log(props.photo_url)
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
     <Card className={classes.root}>
