@@ -44,9 +44,9 @@ class App extends React.Component {
       renderPointsModal: false,
       issueSelected: {},
       isOpen: false,
-      userData: [],
+      userData: [this.props.userData],
       upVote: false,
-      user: 16,
+      user: this.props.userData.id,
       issueSubmitted: false,
       postIssueModal: false,
     };
@@ -66,46 +66,6 @@ class App extends React.Component {
     });
   }
 
-  // get all issues cus no range yet :)
-  componentDidMount() {
-    this.getUserIssues(this.state.user);
-  }
-
-  getUserIssues(id) {
-    axios({
-      url: api_url,
-      method: 'post',
-      data: {
-        query: `{
-              getUser(id:${this.state.user}) {
-                id
-                first_name
-                points
-                issues {
-                  id
-                  title
-                  description
-                  create_date
-                  photo_url
-                  borough{
-                    name
-                  }
-                  resolution_status{
-                    name
-                  }
-                }
-              }
-            }`,
-      },
-    }).then((res) => {
-      this.setState(
-        {
-          userData: res.data.data.getUser,
-        },
-        () => {}
-      );
-    });
-  }
 
   handleIssueSelected(issue) {
     this.setState({

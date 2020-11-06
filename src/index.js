@@ -1,22 +1,43 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import "./styles.scss";
-import axios from 'axios'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import './styles.scss';
+import axios from 'axios';
+
 const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 
+let email = window.localStorage.getItem('GothamEmail');
+console.log(email);
 
-let email = window.localStorage.getItem('GothamEmail')
-console.log(email)
-
-// axios(
-//   url: api_url,
-//   method: 'post',
-//   data: {
-//     `{
-//       getUser()
-//     }`
-//   }
-// )
-var mountNode = document.getElementById("app");
-ReactDOM.render(<App />, mountNode);
+axios({
+  url: api_url,
+  method: 'post',
+  data: {
+    query: `{
+          getUser(email:"${email}") {
+            id
+            first_name
+            points
+            issues {
+              id
+              title
+              description
+              create_date
+              photo_url
+              borough{
+                name
+              }
+              resolution_status{
+                name
+              }
+            }
+          }
+        }`,
+  },
+})
+  .then((res) => {
+    console.log(res.data.data.getUser[0]);
+    var mountNode = document.getElementById('app');
+    ReactDOM.render(<App userData={res.data.data.getUser[0]} />, mountNode);
+  })
+  .catch((err) => console.log(err));
