@@ -33,6 +33,7 @@ axios({
   },
 })
   .then((res) => {
+    console.log(res.data.data)
     var mountNode = document.getElementById('app');
     ReactDOM.render(<App userData={res.data.data.getUser[0]} email={email}/>, mountNode);
   })

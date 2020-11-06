@@ -9,6 +9,7 @@ import ImageContainer from './ImageContainer';
 import SelectTypeDropdown from './SelectTypeDropdown';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
+import InteractionTracker from '../utility/InteractionTracker';
 const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 export default function UploadModal({
   renderPointsModal,
@@ -119,63 +120,71 @@ export default function UploadModal({
               marginBottom: 'inherit',
             }}
           >
-            <Button
-              onClick={() => {
-                let title = document.getElementById('standard-search').value;
-                let description = document.getElementById('outlined-multiline-flexible').value;
-                console.log(
-                  title,
-                  description,
-                  userId,
-                  image,
-                  issueType,
-                  borough,
-                  location.lat,
-                  location.lng
-                );
-                if (
-                  title &&
-                  description &&
-                  userId &&
-                  image &&
-                  issueType &&
-                  borough &&
-                  location.lat &&
-                  location.lng
-                ) {
-                  let item = `mutation {
-                  createIssue(
-                  title: "${title}"
-                  description: "${description}"
-                  photo_url: "${image}"
-                  user_id: ${userId}
-                  issue_type_id: ${issueType}
-                  borough_id: ${borough}
-                  lat: ${location.lat}
-                  lng: ${location.lng}
+          <InteractionTracker
+            userId={userId}  //good
+            issueId={null} //good
+            actionType={1} //good
+            render={({postInteraction}) => {
+                return <Button
+                onClick={() => {
+                  let title = document.getElementById('standard-search').value;
+                  let description = document.getElementById('outlined-multiline-flexible').value;
+                  console.log(
+                    title,
+                    description,
+                    userId,
+                    image,
+                    issueType,
+                    borough,
+                    location.lat,
+                    location.lng
+                  );
+                  if (
+                    title &&
+                    description &&
+                    userId &&
+                    image &&
+                    issueType &&
+                    borough &&
+                    location.lat &&
+                    location.lng
                   ) {
-                  id
-                  user_id
-                  title
-                }
-                }`;
-                  axios({
-                    url: api_url,
-                    method: 'post',
-                    data: {
-                      query: item,
-                    },
-                  }).then((res) => {
-                    handleRenderPointsModalPostIssue();
-                    handleClose();
-                  });
-                }
-              }}
-              variant="contained"
-              color="primary"
-            >
-              Submit Issue
-            </Button>
+                    let item = `mutation {
+                    createIssue(
+                    title: "${title}"
+                    description: "${description}"
+                    photo_url: "${image}"
+                    user_id: ${userId}
+                    issue_type_id: ${issueType}
+                    borough_id: ${borough}
+                    lat: ${location.lat}
+                    lng: ${location.lng}
+                    ) {
+                    id
+                    user_id
+                    title
+                  }
+                  }`;
+                    axios({
+                      url: api_url,
+                      method: 'post',
+                      data: {
+                        query: item,
+                      },
+                    }).then((res) => {
+                      console.log(res.data)
+                      postInteraction(location.lat, location.lng, res.data.data.createIssue.id)
+                      handleRenderPointsModalPostIssue();
+                      handleClose();
+                    });
+                  }
+                }}
+                variant="contained"
+                color="primary"
+              >
+                Submit Issue
+              </Button>
+            }}></InteractionTracker>
           </section>
         </Dialog>
       </Grid>

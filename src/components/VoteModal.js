@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
+import InteractionTracker from '../utility/InteractionTracker';
 const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 
 export default function VoteModal({
@@ -88,54 +89,69 @@ export default function VoteModal({
               marginBottom: 'inherit',
             }}
           >
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={(e) => {
-                let id = parseInt(issue.id);
-                axios({
-                  url: api_url,
-                  method: 'post',
-                  data: {
-                    query: `mutation {
-                      updateIssue(
-                        id: ${id}
-                        upvotes_count: ${issue.upvotes_count + 1}
-                         )
-                      }
-                  `,
-                  },
-                }).then((res) => {
-                  handleVoted();
-                });
-              }}
-            >
-              Upvote
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => {
-                let id = parseInt(issue.id);
-                axios({
-                  url: api_url,
-                  method: 'post',
-                  data: {
-                    query: `mutation {
-                      updateIssue(
-                        id: ${id}
-                        reported_count: ${issue.upvotes_count + 1}
-                         )
-                      }
-                  `,
-                  },
-                }).then((res) => {
-                  handleClose();
-                });
-              }}
-            >
-              Report
-            </Button>
+          <InteractionTracker
+          userId={1}  // i need real data ***********
+          issueId={issue.id} //good
+          actionType={2} //good
+          render={({postInteraction}) => {
+              return <Button
+                variant="contained"
+                color="primary"
+                onClick={(e) => {
+                  postInteraction(40.827,-73.942); //needs actual location data************
+                  let id = parseInt(issue.id);
+                  axios({
+                    url: api_url,
+                    method: 'post',
+                    data: {
+                      query: `mutation {
+                        updateIssue(
+                          id: ${id}
+                          upvotes_count: ${issue.upvotes_count + 1}
+                          )
+                        }
+                    `,
+                    },
+                  }).then((res) => {
+                    handleVoted();
+                  });
+                }}
+              >
+                Upvote
+              </Button>
+            }}></InteractionTracker>
+
+            <InteractionTracker
+            userId={1}  // i need real data ***********
+            issueId={issue.id} //good
+            actionType={3} //good
+            render={({postInteraction}) => {
+              return <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  postInteraction(40.827,-73.942); //needs actual location data************
+                  let id = parseInt(issue.id);
+                  axios({
+                    url: api_url,
+                    method: 'post',
+                    data: {
+                      query: `mutation {
+                        updateIssue(
+                          id: ${id}
+                          reported_count: ${issue.upvotes_count + 1}
+                          )
+                        }
+                    `,
+                    },
+                  }).then((res) => {
+                    handleClose();
+                  });
+                }}
+              >
+                Report
+              </Button>
+            }}></InteractionTracker>
           </section>
         </Dialog>
       </Grid>
