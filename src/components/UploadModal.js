@@ -123,6 +123,16 @@ export default function UploadModal({
               onClick={() => {
                 let title = document.getElementById('standard-search').value;
                 let description = document.getElementById('outlined-multiline-flexible').value;
+                console.log(
+                  title,
+                  description,
+                  userId,
+                  image,
+                  issueType,
+                  borough,
+                  location.lat,
+                  location.lng
+                );
                 if (
                   title &&
                   description &&
@@ -153,13 +163,12 @@ export default function UploadModal({
                     url: api_url,
                     method: 'post',
                     data: {
-                      query: item
-                      }
+                      query: item,
+                    },
                   }).then((res) => {
-                  handleRenderPointsModalPostIssue();
-                  handleClose();
-                  })
-
+                    handleRenderPointsModalPostIssue();
+                    handleClose();
+                  });
                 }
               }}
               variant="contained"

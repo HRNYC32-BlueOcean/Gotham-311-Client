@@ -5,9 +5,7 @@ import './styles.scss';
 import axios from 'axios';
 
 const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
-
 let email = window.localStorage.getItem('GothamEmail');
-
 axios({
   url: api_url,
   method: 'post',
