@@ -20,6 +20,8 @@ class IndividualCards extends React.Component {
     };
   }
   componentDidUpdate(prevProps, prevState) {
+    if (prevProps.info !== this.props.info) {
+      console.log('changed')
       let address;
       Geocode.fromLatLng(this.props.info.coordinates.lat, this.props.info.coordinates.lng).then(
         (response) => {
@@ -29,6 +31,7 @@ class IndividualCards extends React.Component {
           });
         }
       );
+    }
   }
 
   componentDidMount() {
