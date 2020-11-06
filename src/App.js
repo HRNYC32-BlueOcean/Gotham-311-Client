@@ -148,7 +148,6 @@ class App extends React.Component {
   // toggles the position of the list-view menu
   togglePosition() {
     const { isOpen } = this.state;
-    console.log(this.state.isOpen)
     if (isOpen) {
       this.menuRef.current.style.left = '-100vw';
     } else {

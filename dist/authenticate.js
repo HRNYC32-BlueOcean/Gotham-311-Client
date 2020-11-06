@@ -19,7 +19,7 @@
   const apiURL = 'https://nameless-mountain-18450.herokuapp.com/';
   const createUserMutation = function (firstName, lastName, email) {
     return `mutation {
-        createUser( 
+        createUser(
           first_name: "${firstName}"
           last_name: "${lastName}"
           email: "${email}"
@@ -67,7 +67,7 @@
               const userId = response.data.data.createUser.id;
               console.log('userId', userId);
             }
-            // location.href = '/';
+            location.href = '/';
             console.log('routed');
           })
           .catch(function (error) {
