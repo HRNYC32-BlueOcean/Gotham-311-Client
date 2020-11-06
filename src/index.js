@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './styles.scss';
 import axios from 'axios';
+import Banned from './banned'
 
 const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 let email = window.localStorage.getItem('GothamEmail');
@@ -15,6 +16,7 @@ axios({
             id
             first_name
             points
+            banned
             issues {
               id
               title
@@ -33,7 +35,14 @@ axios({
   },
 })
   .then((res) => {
+    let data = res.data.data.getUser[0]
+    if (data.banned) {
+      var mountNode = document.getElementById('app');
+      ReactDOM.render(<Banned user={data.first_name}/>, mountNode);
+    } else {
     var mountNode = document.getElementById('app');
-    ReactDOM.render(<App userData={res.data.data.getUser[0]} email={email}/>, mountNode);
+    ReactDOM.render(<App userData={data} email={email}/>, mountNode);
+    }
+
   })
   .catch((err) => console.log(err));
