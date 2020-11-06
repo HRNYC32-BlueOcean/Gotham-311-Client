@@ -7,7 +7,7 @@ import UploadModal from '../components/UploadModal';
 import dummyData from '../Cards/dummydata';
 import VoteModal from '../components/VoteModal';
 import axios from 'axios';
-
+import apiKey from './api'
 
 const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
 
@@ -144,5 +144,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyDyjc_PSZhBWDvzJSDQVnUMT5RJ84IIrNA',
+  apiKey: apiKey,
 })(MapContainer);
