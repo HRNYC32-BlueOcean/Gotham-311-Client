@@ -23,7 +23,6 @@ class IndividualCards extends React.Component {
       let address;
       Geocode.fromLatLng(this.props.info.coordinates.lat, this.props.info.coordinates.lng).then(
         (response) => {
-          console.log(this.state.address)
           address = response.results[0].formatted_address;
           this.setState({
             address: address,

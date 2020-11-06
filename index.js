@@ -91,12 +91,11 @@ APP.post('/logout', (req, res) => {
     .verifySessionCookie(sessionCookie)
     .then((decodedClaims) => {
       console.log('DECODE CLAIMS:', decodedClaims);
-
       return admin.auth().revokeRefreshTokens(decodedClaims.sub);
     })
     .then(() => {
       console.log('cleared cookie access in firebase');
-      res.redirect('/'); //THIS ISN'T WORKING (no idea why), ROUTE CLIENT SIDE
+      res.redirect('/login'); //THIS ISN'T WORKING (no idea why), ROUTE CLIENT SIDE
     })
     .catch((error) => {
       console.log('LOGOUT ERROR', error);
