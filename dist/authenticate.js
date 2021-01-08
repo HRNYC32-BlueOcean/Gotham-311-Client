@@ -2,21 +2,22 @@
 /* eslint-disable func-names */
 /* eslint-disable no-undef */
 (function () {
+  require('dotenv').config();
   const firebaseConfig = {
-    apiKey: 'AIzaSyDgQ_XKve5qbqGrBzIJUz68jZq1jdfc9wE',
-    authDomain: 'blue-ocean-11c09.firebaseapp.com',
-    databaseURL: 'https://blue-ocean-11c09.firebaseio.com',
-    projectId: 'blue-ocean-11c09',
-    storageBucket: 'blue-ocean-11c09.appspot.com',
-    messagingSenderId: '1021824389353',
-    appId: '1:1021824389353:web:1bcb46d710c7dd9c9b6078',
-    measurementId: 'G-3XVR2PNR58',
+    apiKey: process.env.apiKey,
+    authDomain: process.env.authDomain,
+    databaseURL: process.env.databaseURL,
+    projectId: process.env.projectId,
+    storageBucket: process.env.storageBucket,
+    messagingSenderId: process.env.messagingSenderId,
+    appId: process.env.appId,
+    measurementId: process.env.messagingSenderId,
   };
 
   firebase.initializeApp(firebaseConfig);
   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 
-  const apiURL = 'https://nameless-mountain-18450.herokuapp.com/';
+  const apiURL = process.env.API_URL;
   const createUserMutation = function (firstName, lastName, email) {
     return `mutation {
         createUser(
