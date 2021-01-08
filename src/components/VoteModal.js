@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ImageContainer from './ImageContainer';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
-const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
+const api_url = process.env.API_URL;
 
 export default function VoteModal({
   renderVoteModal,

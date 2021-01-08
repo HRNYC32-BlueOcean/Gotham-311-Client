@@ -7,9 +7,9 @@ import UploadModal from '../components/UploadModal';
 import dummyData from '../Cards/dummydata';
 import VoteModal from '../components/VoteModal';
 import axios from 'axios';
-import apiKey from './api'
 
-const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
+const apiKey = process.env.apiKey;
+const api_url = process.env.API_URL;
 
 const mapStyles = {
   width: '100%',
@@ -92,7 +92,7 @@ export class MapContainer extends Component {
     if (this.state.passDownData.length > 0) {
       for (let i = 0; i < 10; i++) {
         if (this.state.passDownData[i] !== undefined) {
-          let position = this.state.passDownData[i].coordinates
+          let position = this.state.passDownData[i].coordinates;
           markers.push(
             <Marker
               key={i}

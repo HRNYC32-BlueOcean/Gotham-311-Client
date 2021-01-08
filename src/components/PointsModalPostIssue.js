@@ -4,11 +4,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PointsContainer from './PointsContainer.jsx';
-import axios from 'axios'
-const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
+import axios from 'axios';
+const api_url = process.env.API_URL;
 
-
-export default function PointsModalPostIssue({
+export default function PointsModalaPostIssue({
   postIssueModal,
   handleRenderPointsModalPostIssue,
   id,
@@ -22,7 +21,7 @@ export default function PointsModalPostIssue({
   };
 
   const handleClose = () => {
-    triggerChange(10)
+    triggerChange(10);
     axios({
       url: api_url,
       method: 'post',
@@ -36,7 +35,7 @@ export default function PointsModalPostIssue({
       `,
       },
     }).then((res) => {
-      return
+      return;
     });
     setOpen(false);
   };

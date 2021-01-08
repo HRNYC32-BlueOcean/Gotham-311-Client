@@ -1,4 +1,5 @@
 import React from 'react';
+require('dotenv').config();
 import Map from './MapContainer/Map';
 import Cards from './Cards/Cards';
 import VoteModal from './components/VoteModal.js';
@@ -49,7 +50,7 @@ class App extends React.Component {
       issueSubmitted: false,
       postIssueModal: false,
       points: this.props.userData.points,
-      name: this.props.userData.first_name
+      name: this.props.userData.first_name,
     };
 
     this.handleRenderVote = this.handleRenderVote.bind(this);
@@ -119,8 +120,8 @@ class App extends React.Component {
 
   changingPoints(num) {
     this.setState({
-      points: this.state.points + num
-    })
+      points: this.state.points + num,
+    });
   }
 
   render() {
@@ -235,11 +236,16 @@ class App extends React.Component {
             </IconButton>
             <Typography variant="h6">NYAAN Gotham 311: Welcome {this.state.name}</Typography>
             <Typography variant="h6">You currently have {this.state.points} points</Typography>
-            <div type="button" onClick={() => {
-              axios.post('/logout').then(() => {
-                location.href = '/login'
-              })
-            }}>LOGOUT</div>
+            <div
+              type="button"
+              onClick={() => {
+                axios.post('/logout').then(() => {
+                  location.href = '/login';
+                });
+              }}
+            >
+              LOGOUT
+            </div>
           </Toolbar>
         </AppBar>
         <div className="container">

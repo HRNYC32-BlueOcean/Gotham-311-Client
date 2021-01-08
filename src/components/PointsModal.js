@@ -4,9 +4,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PointsContainer from './PointsContainer.jsx';
-import axios from 'axios'
-const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
-
+import axios from 'axios';
+const api_url = process.env.API_URL;
 
 export default function PointsModal({
   renderPointsModal,
@@ -15,7 +14,7 @@ export default function PointsModal({
   handleIssueSubmitted,
   id,
   points,
-  triggerChange
+  triggerChange,
 }) {
   const [open, setOpen] = React.useState(renderPointsModal ? true : false);
 
@@ -24,7 +23,7 @@ export default function PointsModal({
   };
 
   const handleClose = () => {
-    triggerChange(1)
+    triggerChange(1);
     axios({
       url: api_url,
       method: 'post',
@@ -35,28 +34,32 @@ export default function PointsModal({
             points: ${points + 1}
              )
           }
-      `
+      `,
       },
-    })
+    });
     setOpen(false);
   };
   const handleChange = (event) => {
     console.log('hello');
   };
 
-
   return (
-   <div>
+    <div>
       <Dialog open={open} onClose={handleClose}>
-          <DialogContent>
-      <PointsContainer/>
-          <h3 style={{ "display":"flex", "justifyContent":"center"}}>You just recieved 1 Gotham points!</h3>
-          <div className="close-points-button" style={{ "display":"flex", "justifyContent":"center"}}>
-          <Button onClick={handleClose} variant="outlined" color="primary">
-            Close
-          </Button>
-        </div>
-          </DialogContent>
+        <DialogContent>
+          <PointsContainer />
+          <h3 style={{ display: 'flex', justifyContent: 'center' }}>
+            You just recieved 1 Gotham points!
+          </h3>
+          <div
+            className="close-points-button"
+            style={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <Button onClick={handleClose} variant="outlined" color="primary">
+              Close
+            </Button>
+          </div>
+        </DialogContent>
       </Dialog>
     </div>
   );
