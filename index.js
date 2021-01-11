@@ -1,9 +1,9 @@
-require('dotenv').config();
 const EXPRESS = require('express');
 const PATH = require('path');
+require('dotenv').config();
 const PORT = process.env.PORT || 3002;
 const bodyParser = require('body-parser');
-const { cloudinary } = require('./Uploader/something.js');
+const { cloudinary } = require('cloudinary');
 const cookieParser = require('cookie-parser');
 
 const APP = EXPRESS();

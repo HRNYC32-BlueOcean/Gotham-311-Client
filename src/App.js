@@ -1,5 +1,4 @@
 import React from 'react';
-require('dotenv').config();
 import Map from './MapContainer/Map';
 import Cards from './Cards/Cards';
 import VoteModal from './components/VoteModal.js';
@@ -25,7 +24,7 @@ import PointsModalPostIssue from './components/PointsModalPostIssue';
 
 // Imports for testing new cards:
 import dummyData from './Cards/dummydata';
-const api_url = 'https://nameless-mountain-18450.herokuapp.com/';
+const api_url = process.env.api_url;
 
 const darkTheme = createMuiTheme({
   palette: {

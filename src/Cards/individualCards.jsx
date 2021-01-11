@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Geocode from 'react-geocode';
-import apiKey from '../MapContainer/api';
 import moment from 'moment';
 import {
   // Card demos
@@ -10,6 +9,8 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core';
+
+const apiKey = process.env.apiKey;
 
 class IndividualCards extends React.Component {
   constructor(props) {

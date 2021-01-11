@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import mapStyle from './mapstyles';
-import Geocode from 'react-geocode'
-import apiCode from './api'
+import Geocode from 'react-geocode';
 
 const mapStyles = {
   map: {
@@ -41,21 +40,21 @@ export class CurrentLocation extends React.Component {
           fillColor: '#c4c769',
           strokeColor: '#FFFFFF',
           fillOpacity: 1,
-        }
-      })
-      this.props.setMarkerPosition(this.state.currentLocation)
+        },
+      });
+      this.props.setMarkerPosition(this.state.currentLocation);
     }
   }
 
   placeMarkerAndPanTo(latLng, map, originalDistance) {
     if (this.state.hasMarker === 1) {
       this.state.marker.setMap(null);
-      this.props.setMarkerPosition(originalDistance)
+      this.props.setMarkerPosition(originalDistance);
       this.setState({
-        hasMarker: 0
-      })
+        hasMarker: 0,
+      });
     } else {
-      let latLong = latLng.toJSON()
+      let latLong = latLng.toJSON();
       this.setState({
         hasMarker: 1,
       });
@@ -65,7 +64,7 @@ export class CurrentLocation extends React.Component {
           map: map,
         }),
       });
-      this.props.setMarkerPosition(latLong)
+      this.props.setMarkerPosition(latLong);
       map.panTo(latLng);
     }
   }
@@ -92,7 +91,7 @@ export class CurrentLocation extends React.Component {
               lng: coords.longitude,
             },
           });
-        })
+        });
       }
     }
     this.loadMap();
